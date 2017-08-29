@@ -1,0 +1,1 @@
+Neste diretório devem ser comitados todos os arquivos correspondentes ao back-end da aplicação.
