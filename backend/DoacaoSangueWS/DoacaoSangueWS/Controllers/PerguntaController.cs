@@ -98,7 +98,6 @@ namespace DoacaoSangueWS.Controllers
                     return Request.CreateResponse(HttpStatusCode.NotFound, "Pergunta não encontrada");
                 }
             }
-        }
 
         [HttpPut]
         [Authorize(Roles = "Administrador")]
@@ -106,7 +105,7 @@ namespace DoacaoSangueWS.Controllers
         public HttpResponseMessage CriarPerguntas([FromBody]perguntas pergunta)
         {
             var db = new DoacaoSangueEntities();
-            var perguntas = db.perguntas.Where(x => x.id == id).FirstOrDefault();
+            var perguntas = db.perguntas.Where(x => x.id == pergunta.id).FirstOrDefault();
             if (perguntas != null)
             {
 
@@ -119,6 +118,5 @@ namespace DoacaoSangueWS.Controllers
                 return Request.CreateResponse(HttpStatusCode.NotFound, "Pergunta não encontrada");
             }
         }
-
     }
 }
