@@ -1,16 +1,29 @@
+DROP TABLE IF EXISTS usuarios;
+DROP TABLE IF EXISTS doacoes_perguntas;
+DROP TABLE IF EXISTS doacoes;
+DROP TABLE IF EXISTS hemocentros;
+DROP TABLE IF EXISTS perguntas;
+DROP TABLE IF EXISTS doadores;
+DROP TABLE IF EXISTS hemocentros;
+
+
 CREATE TABLE hemocentros(
 	id INTEGER PRIMARY KEY IDENTITY(1, 1),
-	nome VARCHAR NOT NULL,
+	nome VARCHAR(100) NOT NULL,
 	descricao TEXT,
 	estado VARCHAR(100),
 	cidade VARCHAR(100),
-	numero INTEGER(100),
+	numero INTEGER,
 	cep VARCHAR(10),
 	complemento TEXT
 );
 
 CREATE TABLE doadores(
 	id INTEGER PRIMARY KEY IDENTITY(1, 1),
+
+	id_hemocentro INTEGER NOT NULL,
+	FOREIGN KEY(id_hemocentro) REFERENCES hemocentros(id),
+
 	nome VARCHAR(100) NOT NULL,
 	sobrenome VARCHAR(100) NOT NULL,
 	data_nascimento DATE NOT NULL,
@@ -22,7 +35,7 @@ CREATE TABLE doadores(
 
 CREATE TABLE perguntas(
 	id INTEGER PRIMARY KEY IDENTITY(1, 1),
-	nome VARCHAR NOT NULL,
+	nome VARCHAR(100) NOT NULL,
 	resposta BIT
 );
 
@@ -46,16 +59,6 @@ CREATE TABLE doacoes_perguntas(
 	FOREIGN KEY(id_pergunta) REFERENCES perguntas(id), 
 
 	resposta BIT NOT NULL
-);
-
-CREATE TABLE hemocentros_doadores(
-
-	id INTEGER PRIMARY KEY IDENTITY(1, 1),
-
-	id_doador INTEGER NOT NULL,
-	id_hemocentro INTEGER NOT NULL,
-	FOREIGN KEY(id_doador) REFERENCES doadores(id),
-	FOREIGN KEY(id_hemocentro) REFERENCES hemocentros(id)
 );
 
 CREATE TABLE usuarios(

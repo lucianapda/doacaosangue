@@ -27,8 +27,8 @@ namespace DoacaoSangueWS
         public Nullable<double> litros { get; set; }
         public Nullable<System.DateTime> data { get; set; }
     
-        public virtual doadores doadores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<doacoes_perguntas> doacoes_perguntas { get; set; }
+        public virtual doadores doadores { get; set; }
     }
 }

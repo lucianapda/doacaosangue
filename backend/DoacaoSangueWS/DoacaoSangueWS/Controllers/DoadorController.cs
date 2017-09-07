@@ -9,79 +9,114 @@ namespace DoacaoSangueWS.Controllers
 {
     public class DoadorController : ApiController
     {
+
         [HttpGet]
         [Route("doador")]
-        public List<DoacaoSangueWS.doadores> RetornarDoadores()
+        public HttpResponseMessage RetornarDoadores()
         {
             var db = new DoacaoSangueEntities();
             var doador = from d in db.doadores
+                         join h in db.hemocentros on  d.id_hemocentro  equals h.id
                          orderby d.nome
                          select d;
-            return doador.ToList<DoacaoSangueWS.doadores>();
-        }
-
-        [HttpPost]
-        [Route("doador")]
-        public void inserirHemocentro([FromBody]DoacaoSangueWS.doadores doador)
-        {
-            var db = new DoacaoSangueEntities();
-            db.doadores.Add(doador);
-            db.SaveChanges();
-        }
-
-        [HttpPut]
-        [Route("doador")]
-        public void alterarDoador(DoacaoSangueWS.doadores doador)
-        {
-            var db = new DoacaoSangueEntities();
-            var doadorParaAlterar = (from d in db.doadores
-                                     where d.id == doador.id
-                                     select d).FirstOrDefault();
-
-            doadorParaAlterar.nome = retornarValido(doador.nome, doadorParaAlterar.nome);
-            doadorParaAlterar.sobrenome = retornarValido(doador.sobrenome, doadorParaAlterar.sobrenome);
-            doadorParaAlterar.tipo_sanguineo = retornarValido(doador.tipo_sanguineo, doadorParaAlterar.tipo_sanguineo);
-            db.SaveChanges();
+            return Request.CreateResponse(HttpStatusCode.OK, doador.ToList());
         }
 
         [HttpGet]
         [Route("doador/{id:int}")]
-        public DoacaoSangueWS.doadores RetornarDoadorPorId(int id)
+        public HttpResponseMessage RetornarDoadorPorId(int id)
         {
-            var db = new DoacaoSangueEntities();
-            var doador = (from d in db.doadores
-                          orderby d.nome
-                          where d.id == id
-                          select d).FirstOrDefault();
-            return doador;
+            if (id == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código deve ser informado");
+            }
+            else
+            {
+                var db = new DoacaoSangueEntities();
+                var doador = (from d in db.doadores
+                              orderby d.nome
+                              where d.id == id
+                              select d).FirstOrDefault();
+                if (doador == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "Doador não encontrado");
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, doador);
+                }
+            }
         }
 
-        [HttpGet]
-        [Route("doador/{nome}")]
-        public List<DoacaoSangueWS.doadores> RetornarHemocentrosPorNome(string nome)
+        [HttpPost]
+        [Route("doador")]
+        public HttpResponseMessage InserirHemocentro([FromBody]DoacaoSangueWS.doadores doador)
         {
+
             var db = new DoacaoSangueEntities();
-            var doador = from d in db.doadores
-                         orderby d.nome
-                         where d.nome == nome
-                         select d;
-            return doador.ToList<DoacaoSangueWS.doadores>();
+            var perguntas = db.doadores.Where(x => x.id == doador.id).FirstOrDefault();
+
+            if (perguntas == null)
+            {
+                db.doadores.Add(doador);
+                db.SaveChanges();
+                return Request.CreateResponse(HttpStatusCode.Created, "Doador criada com sucesso");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Conflict, "Doador ja existente, não foi possivel criar.");
+            }
         }
 
-        [HttpGet]
-        [Route("doador/{nome}")]
-        public List<DoacaoSangueWS.doadores> RetornarHemocentroWildCard(string nome)
+        [HttpPut]
+        [Route("doador")]
+        public HttpResponseMessage AlterarDoador(DoacaoSangueWS.doadores doador)
         {
-            var db = new DoacaoSangueEntities();
-            var doador = from d in db.doadores
-                         orderby d.nome
-                         where d.nome.Contains(nome)
-                         select d;
-            return doador.ToList<DoacaoSangueWS.doadores>();
+            if (doador.id == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código deve ser informado");
+            }
+            else
+            {
+                var db = new DoacaoSangueEntities();
+                var doadorParaAlterar = (from d in db.doadores
+                                         where d.id == doador.id
+                                         select d).FirstOrDefault();
+                if (doadorParaAlterar != null)
+                {
+                    doadorParaAlterar.id_hemocentro = doador.id_hemocentro == 0 ? doador.id_hemocentro : doadorParaAlterar.id_hemocentro;
+                    doadorParaAlterar.nome = RetornarValido(doador.nome, doadorParaAlterar.nome);
+                    doadorParaAlterar.sobrenome = RetornarValido(doador.sobrenome, doadorParaAlterar.sobrenome);
+                    doadorParaAlterar.tipo_sanguineo = RetornarValido(doador.tipo_sanguineo, doadorParaAlterar.tipo_sanguineo);
+                    db.SaveChanges();
+                    return Request.CreateResponse(HttpStatusCode.OK, "Alteração realizada com sucesso");
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "Doador não encontrada");
+                }
+            }
         }
 
+        [HttpDelete]
+        [Route("doador/{id:int}")]
+        public HttpResponseMessage ExcluirDoador(int id)
+        {
+            var db = new DoacaoSangueEntities();
+            var doador = db.doadores.Where(x => x.id == id).FirstOrDefault();
+            if (doador != null)
+            {
+                db.doadores.Remove(doador);
+                db.SaveChanges();
+                return Request.CreateResponse(HttpStatusCode.OK, "Doador excluído com sucesso");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "Doador não encontrada");
+            }
+        }
 
-        private string retornarValido(string valorNovo, string valorAntigo)
+        private string RetornarValido(string valorNovo, string valorAntigo)
         {
             return valorNovo != null ? valorNovo : valorAntigo;
         }

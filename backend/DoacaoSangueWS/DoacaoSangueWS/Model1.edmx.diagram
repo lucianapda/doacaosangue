@@ -4,19 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b94231f2ae004a78adc956651eb57481" Name="Diagram1">
-        <EntityTypeShape EntityType="DoacaoSangueModel.doacoes" Width="1.5" PointX="6.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoacaoSangueModel.doacoes_perguntas" Width="1.5" PointX="3.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoacaoSangueModel.doadores" Width="1.5" PointX="11.125" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoacaoSangueModel.hemocentros" Width="1.5" PointX="6.25" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoacaoSangueModel.hemocentros_doadores" Width="2.875" PointX="5.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoacaoSangueModel.perguntas" Width="1.5" PointX="1" PointY="6.375" IsExpanded="true" />
-        <AssociationConnector Association="DoacaoSangueModel.FK__doacoes__id_doad__29572725" ManuallyRouted="false" />
-        <AssociationConnector Association="DoacaoSangueModel.FK__doacoes_p__id_do__2C3393D0" ManuallyRouted="false" />
-        <AssociationConnector Association="DoacaoSangueModel.FK__doacoes_p__id_pe__2D27B809" ManuallyRouted="false" />
-        <AssociationConnector Association="DoacaoSangueModel.FK__hemocentr__id_do__300424B4" ManuallyRouted="false" />
-        <AssociationConnector Association="DoacaoSangueModel.FK__hemocentr__id_he__30F848ED" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DoacaoSangueModel.usuarios" Width="1.5" PointX="1.75" PointY="2.25" />
+      <Diagram DiagramId="b94231f2ae004a78adc956651eb57481" Name="Diagram1" ZoomLevel="127">
+        <EntityTypeShape EntityType="DoacaoSangueModel.doacoes" PointX="8" PointY="0.5" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoacaoSangueModel.doacoes_perguntas" PointX="11.25" PointY="0.5" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoacaoSangueModel.hemocentros" PointX="1.375" PointY="0.5" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoacaoSangueModel.perguntas" PointX="10.5" PointY="5.625" Width="1.5" IsExpanded="true" />
+        <AssociationConnector ManuallyRouted="false" Association="DoacaoSangueModel.FK__doacoes_p__id_do__2C3393D0" />
+        <AssociationConnector ManuallyRouted="false" Association="DoacaoSangueModel.FK__doacoes_p__id_pe__2D27B809" />
+        <EntityTypeShape EntityType="DoacaoSangueModel.doadores" Width="1.5" PointX="4.5" PointY="0.5" />
+        <AssociationConnector Association="DoacaoSangueModel.FK__doacoes__id_doad__4E88ABD4" />
+        <AssociationConnector Association="DoacaoSangueModel.FK__doadores__id_hem__49C3F6B7" />
+        <EntityTypeShape EntityType="DoacaoSangueModel.usuarios" Width="1.5" PointX="3.75" PointY="4.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

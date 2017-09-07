@@ -17,7 +17,7 @@ namespace DoacaoSangueWS
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public hemocentros()
         {
-            this.hemocentros_doadores = new HashSet<hemocentros_doadores>();
+            this.doadores = new HashSet<doadores>();
         }
     
         public int id { get; set; }
@@ -30,6 +30,6 @@ namespace DoacaoSangueWS
         public string complemento { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<hemocentros_doadores> hemocentros_doadores { get; set; }
+        public virtual ICollection<doadores> doadores { get; set; }
     }
 }

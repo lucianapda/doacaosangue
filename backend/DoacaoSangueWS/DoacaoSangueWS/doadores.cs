@@ -18,10 +18,10 @@ namespace DoacaoSangueWS
         public doadores()
         {
             this.doacoes = new HashSet<doacoes>();
-            this.hemocentros_doadores = new HashSet<hemocentros_doadores>();
         }
     
         public int id { get; set; }
+        public int id_hemocentro { get; set; }
         public string nome { get; set; }
         public string sobrenome { get; set; }
         public System.DateTime data_nascimento { get; set; }
@@ -31,7 +31,6 @@ namespace DoacaoSangueWS
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<doacoes> doacoes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<hemocentros_doadores> hemocentros_doadores { get; set; }
+        public virtual hemocentros hemocentros { get; set; }
     }
 }

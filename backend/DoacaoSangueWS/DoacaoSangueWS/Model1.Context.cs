@@ -18,6 +18,8 @@ namespace DoacaoSangueWS
         public DoacaoSangueEntities()
             : base("name=DoacaoSangueEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -27,10 +29,9 @@ namespace DoacaoSangueWS
     
         public virtual DbSet<doacoes> doacoes { get; set; }
         public virtual DbSet<doacoes_perguntas> doacoes_perguntas { get; set; }
-        public virtual DbSet<doadores> doadores { get; set; }
         public virtual DbSet<hemocentros> hemocentros { get; set; }
-        public virtual DbSet<hemocentros_doadores> hemocentros_doadores { get; set; }
         public virtual DbSet<perguntas> perguntas { get; set; }
+        public virtual DbSet<doadores> doadores { get; set; }
         public virtual DbSet<usuarios> usuarios { get; set; }
     }
 }
