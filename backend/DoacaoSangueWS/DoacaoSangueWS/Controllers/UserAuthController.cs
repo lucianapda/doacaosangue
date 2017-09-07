@@ -23,7 +23,7 @@ namespace DoacaoSangueWS.Controllers
         [Route("Pergunta/{id:int}")]
         public HttpResponseMessage Login(User user)
         {
-
+            return null;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace WebApplication1.Controllers
         // ((System.Data.Entity.Validation.DbEntityValidationException)$exception).EntityValidationErrors
         [HttpGet]
         [Route("hemocentro/popular")]
-        public void PopularHemocentros()
+        private void PopularHemocentros()
         {
             var db = new DoacaoSangueEntities();
             db.hemocentros.Add(new hemocentros() { nome = "Sangue tira sua saude Hemocentro", cidade = "Timbó", estado = "SC", complemento = "Been", cep = "89.080-260", descricao = "é nóis é do café memo" });
@@ -87,7 +87,7 @@ namespace WebApplication1.Controllers
             if (hemocentroAux != null)
             {
                 hemocentroAux.nome = hemocentro.nome != null ? hemocentro.nome : hemocentroAux.nome;
-                hemocentroAux.cep = hemocentro.cep != null ? hemocentro.cep : hemocentroAux.cep;
+                hemocentroAux.cep = hemocentro.cep ?? hemocentroAux.cep;
                 hemocentroAux.estado = hemocentro.estado != null ? hemocentro.estado : hemocentroAux.estado;
                 hemocentroAux.cidade = hemocentro.cidade != null ? hemocentro.cidade : hemocentroAux.cidade;
                 hemocentroAux.complemento = hemocentro.complemento != null ? hemocentro.complemento : hemocentroAux.complemento;
