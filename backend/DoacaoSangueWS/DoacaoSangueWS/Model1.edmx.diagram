@@ -16,6 +16,7 @@
         <AssociationConnector Association="DoacaoSangueModel.FK__doacoes_p__id_pe__2D27B809" ManuallyRouted="false" />
         <AssociationConnector Association="DoacaoSangueModel.FK__hemocentr__id_do__300424B4" ManuallyRouted="false" />
         <AssociationConnector Association="DoacaoSangueModel.FK__hemocentr__id_he__30F848ED" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DoacaoSangueModel.usuarios" Width="1.5" PointX="1.75" PointY="2.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

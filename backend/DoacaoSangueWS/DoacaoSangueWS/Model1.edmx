@@ -66,6 +66,16 @@
           <Property Name="nome" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="resposta" Type="bit" />
         </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" />
+          <Property Name="login" Type="varchar" MaxLength="30" />
+          <Property Name="senha" Type="varchar" MaxLength="128" />
+          <Property Name="privilegio" Type="varchar" MaxLength="100" />
+        </EntityType>
         <Association Name="FK__doacoes__id_doad__29572725">
           <End Role="doadores" Type="Self.doadores" Multiplicity="1" />
           <End Role="doacoes" Type="Self.doacoes" Multiplicity="*" />
@@ -133,6 +143,7 @@
           <EntitySet Name="hemocentros" EntityType="Self.hemocentros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="hemocentros_doadores" EntityType="Self.hemocentros_doadores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="perguntas" EntityType="Self.perguntas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__doacoes__id_doad__29572725" Association="Self.FK__doacoes__id_doad__29572725">
             <End Role="doadores" EntitySet="doadores" />
             <End Role="doacoes" EntitySet="doacoes" />
@@ -316,7 +327,18 @@
             <End Role="hemocentros" EntitySet="hemocentros" />
             <End Role="hemocentros_doadores" EntitySet="hemocentros_doadores" />
           </AssociationSet>
+          <EntitySet Name="usuarios" EntityType="DoacaoSangueModel.usuarios" />
         </EntityContainer>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="senha" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="privilegio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -387,6 +409,17 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nome" ColumnName="nome" />
                 <ScalarProperty Name="resposta" ColumnName="resposta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="DoacaoSangueModel.usuarios">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="privilegio" ColumnName="privilegio" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

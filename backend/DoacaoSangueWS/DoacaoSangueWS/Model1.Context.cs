@@ -31,5 +31,6 @@ namespace DoacaoSangueWS
         public virtual DbSet<hemocentros> hemocentros { get; set; }
         public virtual DbSet<hemocentros_doadores> hemocentros_doadores { get; set; }
         public virtual DbSet<perguntas> perguntas { get; set; }
+        public virtual DbSet<usuarios> usuarios { get; set; }
     }
 }
