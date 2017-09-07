@@ -109,6 +109,7 @@
     <Compile Include="Controllers\DoadorController.cs" />
     <Compile Include="Controllers\HemocentroController.cs" />
     <Compile Include="Controllers\PerguntaController.cs" />
+    <Compile Include="Controllers\UserAuthController.cs" />
     <Compile Include="doacoes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
