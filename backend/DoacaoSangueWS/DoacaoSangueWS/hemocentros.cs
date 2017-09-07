@@ -14,13 +14,12 @@ namespace DoacaoSangueWS
     
     public partial class hemocentros
     {
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public hemocentros()
         {
             this.hemocentros_doadores = new HashSet<hemocentros_doadores>();
-        }        
-
+        }
+    
         public int id { get; set; }
         public string nome { get; set; }
         public string descricao { get; set; }

@@ -88,7 +88,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".gitignore" />
     <Content Include="Global.asax" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -105,7 +104,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\DoadorController.cs" />
     <Compile Include="Controllers\HemocentroController.cs" />
     <Compile Include="doacoes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -140,6 +138,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Doacao.cs" />
+    <Compile Include="Models\Doador.cs" />
+    <Compile Include="Models\Hemocentro.cs" />
+    <Compile Include="Models\Pergunta.cs" />
     <Compile Include="perguntas.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

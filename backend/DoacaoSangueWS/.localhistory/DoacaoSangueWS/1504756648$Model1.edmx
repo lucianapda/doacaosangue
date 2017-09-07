@@ -30,10 +30,10 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="sobrenome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="sobrenome" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="data_nascimento" Type="date" Nullable="false" />
-          <Property Name="tipo_sanguineo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="tipo_sanguineo" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="peso" Type="float" />
           <Property Name="altura" Type="float" />
         </EntityType>
@@ -187,10 +187,10 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="sobrenome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sobrenome" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="data_nascimento" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="tipo_sanguineo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipo_sanguineo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="peso" Type="Double" />
           <Property Name="altura" Type="Double" />
           <NavigationProperty Name="doacoes" Relationship="Self.FK__doacoes__id_doad__29572725" FromRole="doadores" ToRole="doacoes" />

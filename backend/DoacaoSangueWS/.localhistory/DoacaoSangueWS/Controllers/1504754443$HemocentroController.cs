@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -23,9 +24,10 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
         }
 
+
         [HttpGet]
         [Route("hemocentro")]
-        public List<DoacaoSangueWS.hemocentros> RetornarHemocentros()
+        public List<DoacaoSangueWS.hemocentros> retornarHemocentros()
         {
             var db = new DoacaoSangueEntities();
             var hemocentros = from b in db.hemocentros
@@ -36,7 +38,7 @@ namespace WebApplication1.Controllers
 
         [HttpGet]
         [Route("hemocentro/{id:int}")]
-        public DoacaoSangueWS.hemocentros RetornarHemocentroPorId(int id)
+        public DoacaoSangueWS.hemocentros obterHemocentroPorId(int id)
         {
             var db = new DoacaoSangueEntities();
             var hemocentro = (from b in db.hemocentros
@@ -47,7 +49,7 @@ namespace WebApplication1.Controllers
 
         [HttpGet]
         [Route("hemocentro/{nome}")]
-        public List<DoacaoSangueWS.hemocentros> RetornarHemocentrosPorNome(string nome)
+        public List<DoacaoSangueWS.hemocentros> retornarHemocentrosPorNome(string nome)
         {
             var db = new DoacaoSangueEntities();
             var hemocentro = from b in db.hemocentros
@@ -58,7 +60,7 @@ namespace WebApplication1.Controllers
 
         [HttpGet]
         [Route("hemocentro/wildcard/{nome}")]
-        public List<DoacaoSangueWS.hemocentros> RetornarHemocentrosWildCard(string nome)
+        public List<DoacaoSangueWS.hemocentros> retornarHemocentrosWildCard(string nome)
         {
             var db = new DoacaoSangueEntities();
             var hemocentro = from b in db.hemocentros
@@ -69,7 +71,7 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [Route("hemocentro")]
-        public void InserirHemocentro([FromBody]DoacaoSangueWS.hemocentros hemocentro)
+        public void inserirHemocentro([FromBody]DoacaoSangueWS.hemocentros hemocentro)
         {
             var db = new DoacaoSangueEntities();
             db.hemocentros.Add(hemocentro);
@@ -78,7 +80,7 @@ namespace WebApplication1.Controllers
 
         [HttpPut]
         [Route("hemocentro")]
-        public void AlterarHemocentro(DoacaoSangueWS.hemocentros hemocentro)
+        public void alterarHemocentro(DoacaoSangueWS.hemocentros hemocentro)
         {
             var db = new DoacaoSangueEntities();
             var hemocentroAux = (from b in db.hemocentros
@@ -96,9 +98,12 @@ namespace WebApplication1.Controllers
             }
         }
 
+
+
+
         [HttpDelete]
         [Route("hemocentro/{id:int}")]
-        public void ExcluirHemocentro(int id)
+        public void excluirHemocentro(int id)
         {
             var db = new DoacaoSangueEntities();
             var hemocentro = db.hemocentros.Where(x => x.id == id).FirstOrDefault();

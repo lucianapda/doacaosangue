@@ -25,10 +25,10 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nome" Type="varchar" MaxLength="1" Nullable="false" />
-    <Property Name="sobrenome" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="sobrenome" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="data_nascimento" Type="date" Nullable="false" />
-    <Property Name="tipo_sanguineo" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="tipo_sanguineo" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="peso" Type="float" />
     <Property Name="altura" Type="float" />
   </EntityType>
