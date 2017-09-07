@@ -21,6 +21,7 @@ namespace WebApplication1.Controllers
             db.hemocentros.Add(new hemocentros() { nome = "IndaHemo", cidade = "Indaial", estado = "SC", complemento = "Has", cep = "87.145-987", descricao = "Complemento 2" });
             db.hemocentros.Add(new hemocentros() { nome = "Vamos doar sangue", cidade = "Rio do Sul", estado = "SC", complemento = "Treta", cep = "87.145-987", descricao = "Complemento 3" });
             db.hemocentros.Add(new hemocentros() { nome = "Rio do Sul Hemo Blud", cidade = "Rio do Sul", estado = "SC", complemento = "Planted", cep = "97.845-657", descricao = "Prog de Noite" });
+
             db.SaveChanges();
         }
 
@@ -78,41 +79,27 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
         }
 
-        [HttpPut]
-        [Route("hemocentro")]
-        public void alterarHemocentro(DoacaoSangueWS.hemocentros hemocentro)
-        {
-            var db = new DoacaoSangueEntities();
-            var hemocentroAux = (from b in db.hemocentros
-                                 where b.id == hemocentro.id
-                                 select b).FirstOrDefault();
-            if (hemocentroAux != null)
-            {
-                hemocentroAux.nome = hemocentro.nome != null ? hemocentro.nome : hemocentroAux.nome;
-                hemocentroAux.cep = hemocentro.cep != null ? hemocentro.cep : hemocentroAux.cep;
-                hemocentroAux.estado = hemocentro.estado != null ? hemocentro.estado : hemocentroAux.estado;
-                hemocentroAux.cidade = hemocentro.cidade != null ? hemocentro.cidade : hemocentroAux.cidade;
-                hemocentroAux.complemento = hemocentro.complemento != null ? hemocentro.complemento : hemocentroAux.complemento;
-                hemocentroAux.descricao = hemocentro.descricao != null ? hemocentro.descricao : hemocentroAux.descricao;
-                db.SaveChanges();
-            }
-        }
+        //[HttpPut]
+        //[Route("hemocentro")]
+        //public void alterarHemocentro(Hemocentro hemocentro)
+        //{
+        //    var context = new DoacaoSangueContext();
+        //    var hemocentroAux = context.hemocentros.Find(hemocentro.Codigo);
+        //    if (hemocentroAux != null)
+        //    {
+        //        context.Entry(hemocentroAux).CurrentValues.SetValues(hemocentro);
+        //        context.SaveChanges();
+        //    }
 
 
+        //}
 
+        //[HttpDelete]
+        //[Route("hemocentro/{id:id}")]
+        //public void excluirHemocentro(int id)
+        //{
 
-        [HttpDelete]
-        [Route("hemocentro/{id:int}")]
-        public void excluirHemocentro(int id)
-        {
-            var db = new DoacaoSangueEntities();
-            var hemocentro = db.hemocentros.Where(x => x.id == id).FirstOrDefault();
-            if (hemocentro != null)
-            {
-                db.hemocentros.Remove(hemocentro);
-                db.SaveChanges();
-            }
-        }
+        //}
 
     }
 }

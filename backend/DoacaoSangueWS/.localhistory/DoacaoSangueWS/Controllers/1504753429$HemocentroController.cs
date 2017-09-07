@@ -110,7 +110,6 @@ namespace WebApplication1.Controllers
             if (hemocentro != null)
             {
                 db.hemocentros.Remove(hemocentro);
-                db.SaveChanges();
             }
         }
 

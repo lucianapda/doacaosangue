@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\backend",
+    "\\backend\\DoacaoSangueWS",
+    "\\backend\\DoacaoSangueWS\\DoacaoSangueWS",
+    "\\backend\\DoacaoSangueWS\\DoacaoSangueWS.Tests",
+    "\\backend\\DoacaoSangueWS\\DoacaoSangueWS\\Models",
+    "\\backend\\DoacaoSangueWS\\packages"
+  ],
+  "SelectedNode": "\\backend\\DoacaoSangueWS\\DoacaoSangueWS\\Models\\Doacoes.cs",
+  "PreviewInSolutionExplorer": false
+}

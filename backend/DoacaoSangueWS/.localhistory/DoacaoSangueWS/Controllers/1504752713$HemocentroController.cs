@@ -99,20 +99,14 @@ namespace WebApplication1.Controllers
         }
 
 
+        //}
 
+        //[HttpDelete]
+        //[Route("hemocentro/{id:id}")]
+        //public void excluirHemocentro(int id)
+        //{
 
-        [HttpDelete]
-        [Route("hemocentro/{id:int}")]
-        public void excluirHemocentro(int id)
-        {
-            var db = new DoacaoSangueEntities();
-            var hemocentro = db.hemocentros.Where(x => x.id == id).FirstOrDefault();
-            if (hemocentro != null)
-            {
-                db.hemocentros.Remove(hemocentro);
-                db.SaveChanges();
-            }
-        }
+        //}
 
     }
 }

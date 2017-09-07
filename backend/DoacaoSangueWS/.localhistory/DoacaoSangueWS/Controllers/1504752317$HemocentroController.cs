@@ -84,35 +84,26 @@ namespace WebApplication1.Controllers
         {
             var db = new DoacaoSangueEntities();
             var hemocentroAux = (from b in db.hemocentros
-                                 where b.id == hemocentro.id
-                                 select b).FirstOrDefault();
+                                where b.id == hemocentro.id
+                                select b).FirstOrDefault();
             if (hemocentroAux != null)
             {
-                hemocentroAux.nome = hemocentro.nome != null ? hemocentro.nome : hemocentroAux.nome;
-                hemocentroAux.cep = hemocentro.cep != null ? hemocentro.cep : hemocentroAux.cep;
-                hemocentroAux.estado = hemocentro.estado != null ? hemocentro.estado : hemocentroAux.estado;
-                hemocentroAux.cidade = hemocentro.cidade != null ? hemocentro.cidade : hemocentroAux.cidade;
-                hemocentroAux.complemento = hemocentro.complemento != null ? hemocentro.complemento : hemocentroAux.complemento;
-                hemocentroAux.descricao = hemocentro.descricao != null ? hemocentro.descricao : hemocentroAux.descricao;
-                db.SaveChanges();
+                if(hemocentro.nome != null)
+                {
+                    hemocentroAux.
+                }
             }
         }
 
 
+            //}
 
+            //[HttpDelete]
+            //[Route("hemocentro/{id:id}")]
+            //public void excluirHemocentro(int id)
+            //{
 
-        [HttpDelete]
-        [Route("hemocentro/{id:int}")]
-        public void excluirHemocentro(int id)
-        {
-            var db = new DoacaoSangueEntities();
-            var hemocentro = db.hemocentros.Where(x => x.id == id).FirstOrDefault();
-            if (hemocentro != null)
-            {
-                db.hemocentros.Remove(hemocentro);
-                db.SaveChanges();
-            }
+            //}
+
         }
-
-    }
 }

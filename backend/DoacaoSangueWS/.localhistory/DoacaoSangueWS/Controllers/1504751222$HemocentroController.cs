@@ -80,39 +80,26 @@ namespace WebApplication1.Controllers
 
         [HttpPut]
         [Route("hemocentro")]
-        public void alterarHemocentro(DoacaoSangueWS.hemocentros hemocentro)
+        public void alterarHemocentro(Hemocentro hemocentro)
         {
             var db = new DoacaoSangueEntities();
-            var hemocentroAux = (from b in db.hemocentros
-                                 where b.id == hemocentro.id
-                                 select b).FirstOrDefault();
+            var hemocentroAux = db.hemocentros.Find(hemocentro.Codigo);
             if (hemocentroAux != null)
             {
-                hemocentroAux.nome = hemocentro.nome != null ? hemocentro.nome : hemocentroAux.nome;
-                hemocentroAux.cep = hemocentro.cep != null ? hemocentro.cep : hemocentroAux.cep;
-                hemocentroAux.estado = hemocentro.estado != null ? hemocentro.estado : hemocentroAux.estado;
-                hemocentroAux.cidade = hemocentro.cidade != null ? hemocentro.cidade : hemocentroAux.cidade;
-                hemocentroAux.complemento = hemocentro.complemento != null ? hemocentro.complemento : hemocentroAux.complemento;
-                hemocentroAux.descricao = hemocentro.descricao != null ? hemocentro.descricao : hemocentroAux.descricao;
+                db.Entry(hemocentroAux).CurrentValues.SetValues(hemocentro);
                 db.SaveChanges();
             }
         }
 
 
+            //}
 
+            //[HttpDelete]
+            //[Route("hemocentro/{id:id}")]
+            //public void excluirHemocentro(int id)
+            //{
 
-        [HttpDelete]
-        [Route("hemocentro/{id:int}")]
-        public void excluirHemocentro(int id)
-        {
-            var db = new DoacaoSangueEntities();
-            var hemocentro = db.hemocentros.Where(x => x.id == id).FirstOrDefault();
-            if (hemocentro != null)
-            {
-                db.hemocentros.Remove(hemocentro);
-                db.SaveChanges();
-            }
+            //}
+
         }
-
-    }
 }

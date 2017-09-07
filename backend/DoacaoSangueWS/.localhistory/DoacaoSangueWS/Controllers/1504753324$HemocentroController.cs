@@ -106,12 +106,7 @@ namespace WebApplication1.Controllers
         public void excluirHemocentro(int id)
         {
             var db = new DoacaoSangueEntities();
-            var hemocentro = db.hemocentros.Where(x => x.id == id).FirstOrDefault();
-            if (hemocentro != null)
-            {
-                db.hemocentros.Remove(hemocentro);
-                db.SaveChanges();
-            }
+            db.hemocentros.Remove(db.hemocentros.Where(x => x.id == id).FirstOrDefault());
         }
 
     }

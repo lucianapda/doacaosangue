@@ -19,7 +19,7 @@ namespace WebApplication1.Models
             get { return $"{Nome} {Sobrenome}"; }
         }
 
-        public virtual List<Models.Doacoes> Doacoes { get; set; }
+        public virtual List<Doacao> Doacoes { get; set; }
 
 
 

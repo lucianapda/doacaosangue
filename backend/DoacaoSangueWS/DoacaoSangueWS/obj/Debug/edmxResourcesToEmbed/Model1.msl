@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DoacaoSangueModelStoreContainer" CdmEntityContainer="DoacaoSangueEntities">
+    <EntitySetMapping Name="doacoes">
+      <EntityTypeMapping TypeName="DoacaoSangueModel.doacoes">
+        <MappingFragment StoreEntitySet="doacoes">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_doador" ColumnName="id_doador" />
+          <ScalarProperty Name="aceitavel" ColumnName="aceitavel" />
+          <ScalarProperty Name="atendente" ColumnName="atendente" />
+          <ScalarProperty Name="litros" ColumnName="litros" />
+          <ScalarProperty Name="data" ColumnName="data" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="doacoes_perguntas">
+      <EntityTypeMapping TypeName="DoacaoSangueModel.doacoes_perguntas">
+        <MappingFragment StoreEntitySet="doacoes_perguntas">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_doacao" ColumnName="id_doacao" />
+          <ScalarProperty Name="id_pergunta" ColumnName="id_pergunta" />
+          <ScalarProperty Name="resposta" ColumnName="resposta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="doadores">
+      <EntityTypeMapping TypeName="DoacaoSangueModel.doadores">
+        <MappingFragment StoreEntitySet="doadores">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="sobrenome" ColumnName="sobrenome" />
+          <ScalarProperty Name="data_nascimento" ColumnName="data_nascimento" />
+          <ScalarProperty Name="tipo_sanguineo" ColumnName="tipo_sanguineo" />
+          <ScalarProperty Name="peso" ColumnName="peso" />
+          <ScalarProperty Name="altura" ColumnName="altura" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hemocentros">
+      <EntityTypeMapping TypeName="DoacaoSangueModel.hemocentros">
+        <MappingFragment StoreEntitySet="hemocentros">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="cidade" ColumnName="cidade" />
+          <ScalarProperty Name="numero" ColumnName="numero" />
+          <ScalarProperty Name="cep" ColumnName="cep" />
+          <ScalarProperty Name="complemento" ColumnName="complemento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hemocentros_doadores">
+      <EntityTypeMapping TypeName="DoacaoSangueModel.hemocentros_doadores">
+        <MappingFragment StoreEntitySet="hemocentros_doadores">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_doador" ColumnName="id_doador" />
+          <ScalarProperty Name="id_hemocentro" ColumnName="id_hemocentro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="perguntas">
+      <EntityTypeMapping TypeName="DoacaoSangueModel.perguntas">
+        <MappingFragment StoreEntitySet="perguntas">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="resposta" ColumnName="resposta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
