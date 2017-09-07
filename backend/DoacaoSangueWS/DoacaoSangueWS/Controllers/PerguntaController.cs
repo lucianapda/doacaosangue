@@ -11,7 +11,7 @@ namespace DoacaoSangueWS.Controllers
     public class PerguntaController : ApiController
     {
         [HttpGet]
-        [Authorize(Roles ="")]
+        [AllowAnonymous]
         [Route("Pergunta/{id:int}")]
         public HttpResponseMessage RetornarPerguntas(int id)
         {
@@ -27,6 +27,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("Pergunta")]
         public HttpResponseMessage ListarPerguntas()
         {
@@ -38,7 +39,8 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpDelete]
-        [Route("Pergunta/Deletar/{id:int}")]
+        [Authorize(Roles = "Administrador")]
+        [Route("Pergunta/{id:int}")]
         public HttpResponseMessage DeletarPerguntas(int id)
         {
             var db = new DoacaoSangueEntities();
@@ -59,6 +61,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administrador")]
         [Route("Pergunta/Alterar")]
         public HttpResponseMessage AlterarPerguntas([FromBody]perguntas pergunta)
         {
@@ -79,6 +82,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administrador")]
         [Route("Pergunta/Criar")]
         public HttpResponseMessage CriarPerguntas([FromBody]perguntas pergunta)
         {
