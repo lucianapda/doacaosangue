@@ -2,5 +2,8 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/backend/DoacaoSangueWS/DoacaoSangueWS/bin
+/backend/DoacaoSangueWS/bin/*
+/backend/DoacaoSangueWS/obj/*
+/backend/.localhistory/*
+/backend/.vs/*
 /backend/DoacaoSangueWS/.vs/DoacaoSangueWS/v14/.suo
