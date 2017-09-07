@@ -12,6 +12,7 @@ namespace DoacaoSangueWS.Controllers
     {
 
         [HttpGet]
+        [Authorize(Roles = "")]
         [Route("pergunta")]
         public HttpResponseMessage RetornarPerguntas()
         {
@@ -97,6 +98,7 @@ namespace DoacaoSangueWS.Controllers
             var perguntas = db.perguntas.Where(x => x.id == id).FirstOrDefault();
             if (perguntas != null)
             {
+
                 db.perguntas.Remove(perguntas);
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.OK, "Pergunta excluída com sucesso");

@@ -102,14 +102,17 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\database_estrutura.sql" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Autenticacao\CustomPrincipal.cs" />
     <Compile Include="Controllers\DoadorController.cs" />
     <Compile Include="Controllers\HemocentroController.cs" />
     <Compile Include="Controllers\PerguntaController.cs" />
-    <Compile Include="Controllers\UserAuthController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="doacoes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
