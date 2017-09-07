@@ -23,6 +23,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("pergunta/{id:int}")]
         public HttpResponseMessage RetornarPerguntaPorId(int id)
         {
