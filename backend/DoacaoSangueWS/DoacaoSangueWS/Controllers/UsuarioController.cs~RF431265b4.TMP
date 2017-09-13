@@ -23,8 +23,6 @@ namespace DoacaoSangueWS.Controllers
         public HttpResponseMessage Popular()
         {
             var db = new DoacaoSangueEntities();
-            db.usuarios.Add(new usuarios() { login = "admin", nome = "admin", privilegio = PrivilegioUsuario.Administrador.ToString(), senha = "admin" });
-
             return Request.CreateResponse(HttpStatusCode.OK, "sucesso");
         }
 
