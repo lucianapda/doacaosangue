@@ -13,7 +13,7 @@ namespace WebApplication1.Controllers
         // ((System.Data.Entity.Validation.DbEntityValidationException)$exception).EntityValidationErrors
         [HttpGet]
         [Route("hemocentro/popular")]
-        private void PopularHemocentros()
+        private void PopularHemocentros()   //////////////////////////////////////////////////////////////////////////// falta retornos
         {
             var db = new DoacaoSangueEntities();
             db.hemocentros.Add(new hemocentros() { nome = "Sangue tira sua saude Hemocentro", cidade = "Timbó", estado = "SC", complemento = "Been", cep = "89.080-260", descricao = "é nóis é do café memo" });
@@ -25,37 +25,69 @@ namespace WebApplication1.Controllers
 
         [HttpGet]
         [Route("hemocentro")]
-        public List<DoacaoSangueWS.hemocentros> RetornarHemocentros()
+        public HttpResponseMessage RetornarHemocentros() /// antes: List<DoacaoSangueWS.hemocentros>
         {
             var db = new DoacaoSangueEntities();
             var hemocentros = from b in db.hemocentros
                               orderby b.id
                               select b;
-            return hemocentros.ToList<DoacaoSangueWS.hemocentros>();
+            return Request.CreateResponse(HttpStatusCode.OK, hemocentros.ToList<DoacaoSangueWS.hemocentros>());
         }
 
         [HttpGet]
         [Route("hemocentro/{id:int}")]
-        public DoacaoSangueWS.hemocentros RetornarHemocentroPorId(int id)
+        public HttpResponseMessage RetornarHemocentroPorId(int id) /// antes: DoacaoSangueWS.hemocentros
         {
-            var db = new DoacaoSangueEntities();
-            var hemocentro = (from b in db.hemocentros
-                              where b.id == id
-                              select b).FirstOrDefault();
-            return hemocentro;
+            if (id == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código ID do hemocentro deve ser informado."); // Não passou id, valor vem como 0.
+            }
+            else
+            {
+                var db = new DoacaoSangueEntities();
+                var hemocentro = (from b in db.hemocentros
+                                  where b.id == id
+                                  select b).FirstOrDefault();
+
+                if (hemocentro == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "Hemocentro não encontrado.");
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, hemocentro);
+                }
+            }
         }
 
         [HttpGet]
         [Route("hemocentro/{nome}")]
-        public List<DoacaoSangueWS.hemocentros> RetornarHemocentrosPorNome(string nome)
+        public HttpResponseMessage RetornarHemocentrosPorNome(string nome) // antes: List<DoacaoSangueWS.hemocentros>
         {
-            var db = new DoacaoSangueEntities();
-            var hemocentro = from b in db.hemocentros
-                             where b.nome == nome
-                             select b;
-            return hemocentro.ToList<DoacaoSangueWS.hemocentros>();
+            if (String.IsNullOrEmpty(nome))
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Nome vazio."); // Não passou o nome, valor vem como 0.
+            }
+            else
+            {
+                var db = new DoacaoSangueEntities();
+                var hemocentro = from b in db.hemocentros
+                                 where b.nome == nome
+                                 select b;
+
+                if (hemocentro == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "Hemocentro não encontrado.");
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, hemocentro.ToList<DoacaoSangueWS.hemocentros>());
+                }
+                
+            }
         }
 
+        /*
         [HttpGet]
         [Route("hemocentro/wildcard/{nome}")]
         public List<DoacaoSangueWS.hemocentros> RetornarHemocentrosWildCard(string nome)
@@ -66,14 +98,26 @@ namespace WebApplication1.Controllers
                              select b;
             return hemocentro.ToList<DoacaoSangueWS.hemocentros>();
         }
+        */
 
         [HttpPost]
         [Route("hemocentro")]
-        public void InserirHemocentro([FromBody]DoacaoSangueWS.hemocentros hemocentro)
+        public HttpResponseMessage InserirHemocentro([FromBody]DoacaoSangueWS.hemocentros hemocentro) // antes: void
         {
             var db = new DoacaoSangueEntities();
-            db.hemocentros.Add(hemocentro);
-            db.SaveChanges();
+            var hemocentros = db.hemocentro.Where(x => x.id == hemocentro.id).FirstOrDefault();
+            
+            if (hemocentros == null)
+            {
+                db.hemocentros.Add(hemocentro);
+                db.SaveChanges();
+                return Request.CreateResponse(HttpStatusCode.Created, "Hemocentro criado com sucesso");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Conflict, "Hemocentro ja existente, não foi possivel criar.");
+            }
+
         }
 
         [HttpPut]
