@@ -31,7 +31,7 @@ namespace WebApplication1.Controllers
             var hemocentros = from b in db.hemocentros
                               orderby b.id
                               select b;
-            return hemocentros.ToList<DoacaoSangueWS.hemocentros>();
+            return hemocentros.ToList();
         }
 
         [HttpGet]

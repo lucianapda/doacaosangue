@@ -90,17 +90,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="DoacaoSangueEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DoacaoSangueEntities.edmx</DependentUpon>
+      <LastGenOutput>DoacaoSangueEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DoacaoSangueEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DoacaoSangueEntities.edmx</DependentUpon>
+      <LastGenOutput>DoacaoSangueEntities.cs</LastGenOutput>
+    </Content>
     <Content Include="Global.asax" />
-    <Content Include="Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
     <Content Include="Resources\database_estrutura.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -113,52 +113,52 @@
     <Compile Include="Controllers\HemocentroController.cs" />
     <Compile Include="Controllers\PerguntaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="DoacaoSangueEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DoacaoSangueEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DoacaoSangueEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DoacaoSangueEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DoacaoSangueEntities.edmx</DependentUpon>
+    </Compile>
     <Compile Include="doacoes.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="doacoes_perguntas.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="doadores.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="hemocentros.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="perguntas.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="usuarios.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <EntityDeploy Include="Model1.edmx">
+    <EntityDeploy Include="DoacaoSangueEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>DoacaoSangueEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <Content Include="DoacaoSangueEntities.edmx.diagram">
+      <DependentUpon>DoacaoSangueEntities.edmx</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
