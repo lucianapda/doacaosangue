@@ -12,9 +12,9 @@ namespace DoacaoSangueWS.Controllers
     {
 
         [HttpGet]
-        [Authorize(Roles = "")]
-        [Route("pergunta")]
-        public HttpResponseMessage RetornarPerguntas()
+        [AllowAnonymous]
+        [Route("Pergunta/{id:int}")]
+        public HttpResponseMessage RetornarPerguntas(int id)
         {
             var db = new DoacaoSangueEntities();
             var perguntas = from b in db.perguntas
@@ -23,6 +23,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("pergunta/{id:int}")]
         public HttpResponseMessage RetornarPerguntaPorId(int id)
         {
@@ -44,16 +45,31 @@ namespace DoacaoSangueWS.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("pergunta")]
-        public HttpResponseMessage InserirPergunta([FromBody]perguntas pergunta)
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("Pergunta")]
+        public HttpResponseMessage ListarPerguntas()
         {
             var db = new DoacaoSangueEntities();
-            var perguntas = db.perguntas.Where(x => x.id == pergunta.id).FirstOrDefault();
+            var perguntas = from b in db.perguntas
+                            select b;
+            
+            return Request.CreateResponse(HttpStatusCode.OK, perguntas.ToList());
+        }
 
-            if (perguntas == null)
+        [HttpDelete]
+        [Authorize(Roles = "Administrador")]
+        [Route("Pergunta/{id:int}")]
+        public HttpResponseMessage DeletarPerguntas(int id)
+        {
+            var db = new DoacaoSangueEntities();
+            var perguntas = db.perguntas.Where(x => x.id == id).FirstOrDefault();
+            if (perguntas != null)
             {
-                db.perguntas.Add(pergunta);
+                var conexoes = db.doacoes_perguntas.Where(x => x.id_pergunta == id);
+                db.doacoes_perguntas.RemoveRange(conexoes);
+
+                db.perguntas.Remove(perguntas);
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.Created, "Pergunta criada com sucesso");
             }
@@ -64,17 +80,12 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpPut]
-        [Route("pergunta")]
-        public HttpResponseMessage AlterarPergunta([FromBody]perguntas pergunta)
+        [Authorize(Roles = "Administrador")]
+        [Route("Pergunta/Alterar")]
+        public HttpResponseMessage AlterarPerguntas([FromBody]perguntas pergunta)
         {
-            if (pergunta.id == 0)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código deve ser informado");
-            }
-            else
-            {
-                var db = new DoacaoSangueEntities();
-                var perguntas = db.perguntas.Where(x => x.id == pergunta.id).FirstOrDefault();
+            var db = new DoacaoSangueEntities();
+            var perguntas = db.perguntas.Where(x => x.id == pergunta.id).FirstOrDefault();
 
                 if (perguntas != null)
                 {
@@ -88,14 +99,14 @@ namespace DoacaoSangueWS.Controllers
                     return Request.CreateResponse(HttpStatusCode.NotFound, "Pergunta não encontrada");
                 }
             }
-        }
 
-        [HttpDelete]
-        [Route("pergunta/{id:int}")]
-        public HttpResponseMessage ExcluirPergunta(int id)
+        [HttpPut]
+        [Authorize(Roles = "Administrador")]
+        [Route("Pergunta/Criar")]
+        public HttpResponseMessage CriarPerguntas([FromBody]perguntas pergunta)
         {
             var db = new DoacaoSangueEntities();
-            var perguntas = db.perguntas.Where(x => x.id == id).FirstOrDefault();
+            var perguntas = db.perguntas.Where(x => x.id == pergunta.id).FirstOrDefault();
             if (perguntas != null)
             {
 
@@ -108,6 +119,5 @@ namespace DoacaoSangueWS.Controllers
                 return Request.CreateResponse(HttpStatusCode.NotFound, "Pergunta não encontrada");
             }
         }
-
     }
 }
