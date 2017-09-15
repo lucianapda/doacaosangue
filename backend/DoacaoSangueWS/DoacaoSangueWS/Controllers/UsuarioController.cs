@@ -37,7 +37,9 @@ namespace DoacaoSangueWS.Controllers
             var userAux = (from u in db.usuarios
                          where u.nome == user.nome &&
                          u.senha == user.senha
-                         select u).FirstOrDefault();]
+                         select u).FirstOrDefault();
+
+            HttpResponseMessage resposta;
             if (userAux != null)
             {
                 HttpContext.Current.User = new CustomPrincipal(userAux);
