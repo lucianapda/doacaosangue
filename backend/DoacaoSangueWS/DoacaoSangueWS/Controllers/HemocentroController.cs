@@ -13,7 +13,7 @@ namespace WebApplication1.Controllers
         // ((System.Data.Entity.Validation.DbEntityValidationException)$exception).EntityValidationErrors
         [HttpGet]
         [Route("hemocentro/popular")]
-        private HttpResponseMessage PopularHemocentros()   //////////////////////////////////////////////////////////////////////////// falta retornos
+        private HttpResponseMessage PopularHemocentros()   //
         {
             var db = new DoacaoSangueEntities();
             db.hemocentros.Add(new hemocentros() { nome = "Sangue tira sua saude Hemocentro", cidade = "Timbó", estado = "SC", complemento = "Been", cep = "89.080-260", descricao = "é nóis é do café memo" });
