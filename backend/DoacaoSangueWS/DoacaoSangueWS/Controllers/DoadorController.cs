@@ -15,11 +15,11 @@ namespace DoacaoSangueWS.Controllers
         public HttpResponseMessage RetornarDoadores()
         {
             var db = new DoacaoSangueEntities();
-            var doador = from d in db.doadores
+            var doadores = from d in db.doadores
                          join h in db.hemocentros on d.id_hemocentro equals h.id
                          orderby d.nome
                          select d;
-            return Request.CreateResponse(HttpStatusCode.OK, doador.ToList());
+            return Request.CreateResponse(HttpStatusCode.OK, doadores.ToList());
         }
 
         [HttpGet]
@@ -57,10 +57,6 @@ namespace DoacaoSangueWS.Controllers
             if(doador.id != 0)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do doador não deve ser informado.");
-            }
-            if (doador.id_hemocentro == 0)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do hemocentro deve ser informado.");
             }
             if (doador.id_hemocentro < 0)
             {

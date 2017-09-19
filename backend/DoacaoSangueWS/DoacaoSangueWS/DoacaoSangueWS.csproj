@@ -16,7 +16,7 @@
     <RootNamespace>DoacaoSangueWS</RootNamespace>
     <AssemblyName>DoacaoSangueWS</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -91,17 +91,17 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="Global.asax" />
+    <Content Include="Global.asax" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DoacaoSangueEntities.edmx</DependentUpon>
-      <LastGenOutput>DoacaoSangueEntities.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DoacaoSangueEntities.tt">
+    <Content Include="Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DoacaoSangueEntities.edmx</DependentUpon>
-      <LastGenOutput>DoacaoSangueEntities.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="Global.asax" />
     <Content Include="Resources\database_estrutura.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -110,56 +110,57 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Autenticacao\CustomPrincipal.cs" />
+    <Compile Include="Controllers\DoacaoController.cs" />
     <Compile Include="Controllers\DoadorController.cs" />
     <Compile Include="Controllers\HemocentroController.cs" />
     <Compile Include="Controllers\PerguntaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
-    <Compile Include="DoacaoSangueEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DoacaoSangueEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DoacaoSangueEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DoacaoSangueEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DoacaoSangueEntities.edmx</DependentUpon>
-    </Compile>
     <Compile Include="doacoes.cs">
-      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="doacoes_perguntas.cs">
-      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="doadores.cs">
-      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="hemocentros.cs">
-      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="perguntas.cs">
-      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="usuarios.cs">
-      <DependentUpon>DoacaoSangueEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <EntityDeploy Include="DoacaoSangueEntities.edmx">
+    <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DoacaoSangueEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DoacaoSangueEntities.edmx.diagram">
-      <DependentUpon>DoacaoSangueEntities.edmx</DependentUpon>
+    <Content Include="Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\DoacaoSangue.pubxml" />
     <None Include="Web.Debug.config">
@@ -190,7 +191,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54613</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/DoacaoSangueWS</IISUrl>
+          <IISUrl>http://localhost:54613/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
