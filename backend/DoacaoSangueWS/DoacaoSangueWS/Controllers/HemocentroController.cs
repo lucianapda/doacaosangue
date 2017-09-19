@@ -12,6 +12,7 @@ namespace WebApplication1.Controllers
     {
         // ((System.Data.Entity.Validation.DbEntityValidationException)$exception).EntityValidationErrors
         [HttpGet]
+        [AllowAnonymous]
         [Route("hemocentro/popular")]
         private HttpResponseMessage PopularHemocentros()
         {
@@ -32,6 +33,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("hemocentro")]
         public HttpResponseMessage RetornarHemocentros()
         {
@@ -44,6 +46,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("hemocentro/{id:int}")]
         public HttpResponseMessage RetornarHemocentroPorId(int id)
         {
@@ -63,6 +66,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("hemocentro/{nome}")]
         public HttpResponseMessage RetornarHemocentrosPorNome(string nome)
         {
@@ -75,6 +79,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         [Route("hemocentro")]
         public HttpResponseMessage InserirHemocentro([FromBody]DoacaoSangueWS.hemocentros hemocentro)
         {
@@ -93,6 +98,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administrador")]
         [Route("hemocentro")]
         public HttpResponseMessage AlterarHemocentro(DoacaoSangueWS.hemocentros hemocentro)
         {
@@ -127,6 +133,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Administrador")]
         [Route("hemocentro/{id:int}")]
         public HttpResponseMessage ExcluirHemocentro(int id)
         {
