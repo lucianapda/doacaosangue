@@ -10,22 +10,10 @@ namespace DoacaoSangueWS.Controllers
 {
     public class PerguntaController : ApiController
     {
-
         [HttpGet]
         [AllowAnonymous]
         [Route("Pergunta/{id:int}")]
-        public HttpResponseMessage RetornarPerguntas(int id)
-        {
-            var db = new DoacaoSangueEntities();
-            var perguntas = from b in db.perguntas
-                            select b;
-            return Request.CreateResponse(HttpStatusCode.OK, perguntas.ToList());
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        [Route("pergunta/{id:int}")]
-        public HttpResponseMessage RetornarPerguntaPorId(int id)
+        public HttpResponseMessage RetornarPergunta(int id)
         {
             if (id == 0)
             {
@@ -71,11 +59,11 @@ namespace DoacaoSangueWS.Controllers
 
                 db.perguntas.Remove(perguntas);
                 db.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.Created, "Pergunta criada com sucesso");
+                return Request.CreateResponse(HttpStatusCode.Created, "Pergunta removida com sucesso");
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.Conflict, "Pergunta ja existente, não foi possivel criar.");
+                return Request.CreateResponse(HttpStatusCode.NotFound, "Falha ao excluir, pergunta inexistente");
             }
         }
 
