@@ -42,7 +42,15 @@ namespace WebApplication1.Controllers
                               orderby b.id
                               select b;
 
-            return Request.CreateResponse(HttpStatusCode.OK, hemocentros.ToList());
+            if (hemocentros != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, hemocentros.ToList());
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "Lista de hemocentros vazia.");
+            }
+            
         }
 
         [HttpGet]
@@ -75,7 +83,15 @@ namespace WebApplication1.Controllers
                              where b.nome.Contains(nome)
                              select b;
 
-            return Request.CreateResponse(HttpStatusCode.OK, hemocentro.ToList<DoacaoSangueWS.hemocentros>());
+            if (hemocentro != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, hemocentro.ToList<DoacaoSangueWS.hemocentros>());
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "Nome informado não corresponde a um Hemocentro existente");
+            }
+            
         }
 
         [HttpPost]
@@ -149,7 +165,7 @@ namespace WebApplication1.Controllers
                 return Request.CreateResponse(HttpStatusCode.NotFound, "Hemocentro não encontrado");
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, "Hemocentro alterado com sucesso");
+            return Request.CreateResponse(HttpStatusCode.OK, "Hemocentro excluído com sucesso");
         }
 
     }
