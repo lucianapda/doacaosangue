@@ -42,7 +42,16 @@ namespace WebApplication1.Controllers
                               orderby b.id
                               select b;
 
-            return Request.CreateResponse(HttpStatusCode.OK, hemocentros.ToList());
+            if (hemocentros != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, hemocentros.ToList());
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "Lista de hemocentros vazia.");
+            }
+
+            
         }
 
         [HttpGet]
@@ -75,7 +84,15 @@ namespace WebApplication1.Controllers
                              where b.nome.Contains(nome)
                              select b;
 
-            return Request.CreateResponse(HttpStatusCode.OK, hemocentro.ToList<DoacaoSangueWS.hemocentros>());
+            if (hemocentro != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, hemocentro.ToList<DoacaoSangueWS.hemocentros>());
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "ID informado não corresponde a um Hemocentro existente");
+            }
+            
         }
 
         [HttpPost]
