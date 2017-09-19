@@ -108,7 +108,7 @@ namespace DoacaoSangueWS.Controllers
             var db = new DoacaoSangueEntities();
             db.perguntas.Add(pergunta);
             db.SaveChanges();
-            return Request.CreateResponse(HttpStatusCode.OK, "Pergunta excluída com sucesso");
+            return Request.CreateResponse(HttpStatusCode.Created, "Pergunta incluída com sucesso");
 
         }
     }
