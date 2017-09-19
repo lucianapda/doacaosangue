@@ -95,7 +95,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         [Route("hemocentro")]
         public HttpResponseMessage InserirHemocentro([FromBody]DoacaoSangueWS.hemocentros hemocentro)
         {
@@ -114,7 +114,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         [Route("hemocentro")]
         public HttpResponseMessage AlterarHemocentro(DoacaoSangueWS.hemocentros hemocentro)
         {
@@ -149,7 +149,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         [Route("hemocentro/{id:int}")]
         public HttpResponseMessage ExcluirHemocentro(int id)
         {

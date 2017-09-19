@@ -11,6 +11,7 @@ namespace DoacaoSangueWS.Controllers
     {
 
         [HttpGet]
+        //[Authorize(Roles = "Doador")]
         [Route("doacao/id/{id}")]
         public HttpResponseMessage RetornarDoacao(int id)
         {
@@ -26,6 +27,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpGet]
+        //[Authorize(Roles = "Administrador")]
         [Route("doacao/id_hemocentro/{id}")]
         public HttpResponseMessage RetornarDoacoesPorHemocentro(int id)
         {
@@ -40,6 +42,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpGet]
+        //[Authorize(Roles = "Administrador")]
         [Route("doacao/hemocentro/{id}/data/{data}")]
         public HttpResponseMessage RetornarDoacoesPorHemocentroPorDataDoacao(int id, DateTime data)
         {
@@ -47,6 +50,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpPost]
+        //[Authorize(Roles = "Doador")]
         [Route("doacao")]
         public HttpResponseMessage InserirDoacao([FromBody] DoacaoSangueWS.doacoes doacao)
         {
@@ -56,6 +60,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpPut]
+        //[Authorize(Roles = "Doador")]
         [Route("doacao")]
         public HttpResponseMessage AlterarDoacao([FromBody] DoacaoSangueWS.doacoes doacao)
         {
@@ -74,6 +79,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpDelete]
+        //[Authorize(Roles = "Administrador")]
         [Route("doacao")]
         public HttpResponseMessage ExcluirDoacao(int id)
         {
@@ -89,6 +95,53 @@ namespace DoacaoSangueWS.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, "Doação não encontrada");
             }
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "Doador")]
+        [Route("doacao/perguntas")]
+        public HttpResponseMessage RelacionarPergunta([FromBody]DoacaoSangueWS.doacoes_perguntas doacao_pergunta)
+        {
+            if(doacao_pergunta.id_doacao == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código da doação não pode ser igual ou menor que 0");
+            }
+
+            if(doacao_pergunta.id_pergunta <= 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código da pergunta não pode ser igual ou menor que 0");
+            }
+
+            var db = new DoacaoSangueEntities();
+            var doacao = (from d in db.doacoes
+                            where d.id == doacao_pergunta.id_doacao
+                          select d).FirstOrDefault();
+            if(doacao == null){
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Doação não encontrado");
+            }
+
+            var pergunta = (from p in db.perguntas
+                            where p.id == doacao_pergunta.id_pergunta
+                            select p).FirstOrDefault();
+            if(pergunta == null){
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Pergunta não encontrada");
+            }
+
+            var doacaoPergunta = (from dp in db.doacoes_perguntas
+                            where dp.id_pergunta == doacao_pergunta.id_pergunta && dp.id_doacao == doacao_pergunta.id_doacao
+                                  select dp).FirstOrDefault();
+            if(doacaoPergunta != null){
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Pergunta já relacionada com doação");
+            }
+
+            db.doacoes_perguntas.Add(new doacoes_perguntas()
+            {
+                id_pergunta = doacao_pergunta.id_pergunta,
+                id_doacao = doacao_pergunta.id_doacao,
+                resposta = doacao_pergunta.resposta
+            });
+            return Request.CreateResponse(HttpStatusCode.Created, "Realacionamento realizado com sucesso");
+
         }
 
     }

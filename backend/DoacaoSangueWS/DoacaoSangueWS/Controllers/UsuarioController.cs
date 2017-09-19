@@ -17,25 +17,25 @@ namespace DoacaoSangueWS.Controllers
 
     public class UsuarioController : ApiController
     {
-        [HttpPost]
-        [AllowAnonymous]
-        [Route("Usuario/Popular")]
+        [HttpGet]
+        //[AllowAnonymous]
+        [Route("usuario/popular")]
         public HttpResponseMessage Popular()
         {
             var db = new DoacaoSangueEntities();
             db.usuarios.Add(new usuarios() { login = "admin", nome = "admin", privilegio = PrivilegioUsuario.Administrador.ToString(), senha = "admin" });
-
+            db.SaveChanges();
             return Request.CreateResponse(HttpStatusCode.OK, "sucesso");
         }
 
         [HttpPost]
-        [AllowAnonymous]
-        [Route("Usuario/Login")]
-        public HttpResponseMessage Login(usuarios user)
+        //[AllowAnonymous]
+        [Route("usuario/login")]
+        public HttpResponseMessage Login([FromBody]DoacaoSangueWS.usuarios user)
         {
             var db = new DoacaoSangueEntities();
             var userAux = (from u in db.usuarios
-                         where u.nome == user.nome &&
+                         where u.login == user.login &&
                          u.senha == user.senha
                          select u).FirstOrDefault();
 
@@ -51,9 +51,9 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Administrador")]
-        [Route("Usuario")]
-        public HttpResponseMessage CriarUsuario(usuarios user)
+        //[Authorize(Roles = "Administrador")]
+        [Route("usuario")]
+        public HttpResponseMessage InserirUsuario(usuarios user)
         {
             var db = new DoacaoSangueEntities();
             var usuario = db.usuarios.Where(x => x.login == user.login).FirstOrDefault();
@@ -75,14 +75,14 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        [Route("Usuario/TipoUsuario")]
+        //[AllowAnonymous]
+        [Route("usuario/tipoUsuario")]
         public HttpResponseMessage TipoUsuario()
         {
             return Request.CreateResponse(HttpStatusCode.OK, ListaTipoUsuario());
         }
 
-        public List<string> ListaTipoUsuario()
+        private List<string> ListaTipoUsuario()
         {
             var lista = new List<string>();
 
