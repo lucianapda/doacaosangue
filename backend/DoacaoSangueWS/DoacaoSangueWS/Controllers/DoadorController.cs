@@ -17,9 +17,9 @@ namespace DoacaoSangueWS.Controllers
         {
             var db = new DoacaoSangueEntities();
             var doadores = from d in db.doadores
-                         join h in db.hemocentros on d.id_hemocentro equals h.id
-                         orderby d.nome
-                         select d;
+                           join h in db.hemocentros on d.id_hemocentro equals h.id
+                           orderby d.nome
+                           select d;
             return Request.CreateResponse(HttpStatusCode.OK, doadores.ToList());
         }
 
@@ -57,7 +57,7 @@ namespace DoacaoSangueWS.Controllers
         {
             var db = new DoacaoSangueEntities();
 
-            if(doador.id != 0)
+            if (doador.id != 0)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do doador não deve ser informado.");
             }
@@ -103,11 +103,11 @@ namespace DoacaoSangueWS.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Tipo sanguíneo não deve conter mais do que seis caracteres.");
             }
-        
+
             db.doadores.Add(doador);
             db.SaveChanges();
             return Request.CreateResponse(HttpStatusCode.Created, "Doador(a) criado(a) com sucesso!");
-          
+
         }
 
         [HttpPut]
@@ -119,26 +119,57 @@ namespace DoacaoSangueWS.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Código deve ser informado");
             }
-            else
+
+            if (doador.id_hemocentro < 0)
             {
-                var db = new DoacaoSangueEntities();
-                var doadorParaAlterar = (from d in db.doadores
-                                         where d.id == doador.id
-                                         select d).FirstOrDefault();
-                if (doadorParaAlterar != null)
-                {
-                    doadorParaAlterar.id_hemocentro = doador.id_hemocentro == 0 ? doador.id_hemocentro : doadorParaAlterar.id_hemocentro;
-                    doadorParaAlterar.nome = RetornarValido(doador.nome, doadorParaAlterar.nome);
-                    doadorParaAlterar.sobrenome = RetornarValido(doador.sobrenome, doadorParaAlterar.sobrenome);
-                    doadorParaAlterar.tipo_sanguineo = RetornarValido(doador.tipo_sanguineo, doadorParaAlterar.tipo_sanguineo);
-                    db.SaveChanges();
-                    return Request.CreateResponse(HttpStatusCode.OK, "Alteração realizada com sucesso");
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, "Doador não encontrada");
-                }
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do hemocentro não pode ser negativo");
             }
+            var db = new DoacaoSangueEntities();
+            if (doador.id_hemocentro > 0)
+            {
+                var hemocentro = (from h in db.doadores where h.id == doador.id_hemocentro select h).FirstOrDefault();
+                if (hemocentro == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do hemocentro não é válido");
+                }
+
+            }
+
+            if (doador.nome != null && doador.nome != "" && doador.nome.Length > 100)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Nome não conter mais que 100 caracteres.");
+            }
+
+            if (doador.sobrenome != null && doador.sobrenome != "" && doador.sobrenome.Length > 100)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Sobrenome não conter mais que 100 caracteres.");
+            }
+
+            if (doador.data_nascimento != DateTime.MinValue && doador.data_nascimento.Date >= DateTime.Now.Date)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Data de nascimento deve ser inferior a data atual.");
+            }
+
+            if (doador.tipo_sanguineo != null && doador.tipo_sanguineo != "" && doador.tipo_sanguineo.Length > 6)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Tipo sanguíneo não deve conter mais do que seis caracteres.");
+            }
+
+            var doadorParaAlterar = (from d in db.doadores
+                                     where d.id == doador.id
+                                     select d).FirstOrDefault();
+            if (doadorParaAlterar != null)
+            {
+                doadorParaAlterar.id_hemocentro = doador.id_hemocentro == 0 ? doador.id_hemocentro : doadorParaAlterar.id_hemocentro;
+                doadorParaAlterar.nome = RetornarValido(doador.nome, doadorParaAlterar.nome);
+                doadorParaAlterar.sobrenome = RetornarValido(doador.sobrenome, doadorParaAlterar.sobrenome);
+                doadorParaAlterar.tipo_sanguineo = RetornarValido(doador.tipo_sanguineo, doadorParaAlterar.tipo_sanguineo);
+                db.SaveChanges();
+                return Request.CreateResponse(HttpStatusCode.OK, "Alteração realizada com sucesso");
+            }
+
+            return Request.CreateResponse(HttpStatusCode.NotFound, "Doador não encontrada");
+
         }
 
         [HttpDelete]
