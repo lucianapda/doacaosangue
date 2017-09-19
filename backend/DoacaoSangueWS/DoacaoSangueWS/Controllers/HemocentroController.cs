@@ -50,7 +50,6 @@ namespace WebApplication1.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.OK, "Lista de hemocentros vazia.");
             }
-
             
         }
 
@@ -90,7 +89,7 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound, "ID informado não corresponde a um Hemocentro existente");
+                return Request.CreateResponse(HttpStatusCode.NotFound, "Nome informado não corresponde a um Hemocentro existente");
             }
             
         }
@@ -166,7 +165,7 @@ namespace WebApplication1.Controllers
                 return Request.CreateResponse(HttpStatusCode.NotFound, "Hemocentro não encontrado");
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, "Hemocentro alterado com sucesso");
+            return Request.CreateResponse(HttpStatusCode.OK, "Hemocentro excluído com sucesso");
         }
 
     }
