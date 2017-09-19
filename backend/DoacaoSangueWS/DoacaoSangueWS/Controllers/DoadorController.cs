@@ -12,7 +12,7 @@ namespace DoacaoSangueWS.Controllers
 
         [HttpGet]
         //[Authorize(Roles = "Administrador")]
-        [Route("doador")]
+        [Route("doadores")]
         public HttpResponseMessage RetornarDoadores()
         {
             var db = new DoacaoSangueEntities();
@@ -36,6 +36,7 @@ namespace DoacaoSangueWS.Controllers
             {
                 var db = new DoacaoSangueEntities();
                 var doador = (from d in db.doadores
+                              join h in db.hemocentros on d.id_hemocentro equals h.id
                               orderby d.nome
                               where d.id == id
                               select d).FirstOrDefault();
@@ -43,10 +44,8 @@ namespace DoacaoSangueWS.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.NotFound, "Doador não encontrado");
                 }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK, doador);
-                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, doador);
             }
         }
 
@@ -66,7 +65,7 @@ namespace DoacaoSangueWS.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do hemocentro não pode ser negativo");
             }
 
-            var hemocentro = (from h in db.doadores where h.id == doador.id_hemocentro select h).FirstOrDefault();
+            var hemocentro = (from h in db.hemocentros where h.id == doador.id_hemocentro select h).FirstOrDefault();
             if (hemocentro == null)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do hemocentro não é válido");
@@ -113,7 +112,7 @@ namespace DoacaoSangueWS.Controllers
         [HttpPut]
         //[Authorize(Roles = "Administrador")]
         [Route("doador")]
-        public HttpResponseMessage AlterarDoador(DoacaoSangueWS.doadores doador)
+        public HttpResponseMessage AlterarDoador([FromBody]DoacaoSangueWS.doadores doador)
         {
             if (doador.id == 0)
             {
@@ -168,7 +167,7 @@ namespace DoacaoSangueWS.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, "Alteração realizada com sucesso");
             }
 
-            return Request.CreateResponse(HttpStatusCode.NotFound, "Doador não encontrada");
+            return Request.CreateResponse(HttpStatusCode.NotFound, "Doador não encontrado");
 
         }
 
@@ -187,7 +186,7 @@ namespace DoacaoSangueWS.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound, "Doador não encontrada");
+                return Request.CreateResponse(HttpStatusCode.NotFound, "Doador não encontrado");
             }
         }
 

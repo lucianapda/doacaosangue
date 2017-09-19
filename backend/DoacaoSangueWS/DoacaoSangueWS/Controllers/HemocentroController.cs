@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
     {
         // ((System.Data.Entity.Validation.DbEntityValidationException)$exception).EntityValidationErrors
         [HttpGet]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [Route("hemocentro/popular")]
         private HttpResponseMessage PopularHemocentros()
         {
@@ -33,8 +33,8 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        [Route("hemocentro")]
+        //[AllowAnonymous]
+        [Route("hemocentros")]
         public HttpResponseMessage RetornarHemocentros()
         {
             var db = new DoacaoSangueEntities();
@@ -54,7 +54,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [Route("hemocentro/{id:int}")]
         public HttpResponseMessage RetornarHemocentroPorId(int id)
         {
@@ -74,7 +74,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [Route("hemocentro/{nome}")]
         public HttpResponseMessage RetornarHemocentrosPorNome(string nome)
         {

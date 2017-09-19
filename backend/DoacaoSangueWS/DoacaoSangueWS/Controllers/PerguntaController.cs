@@ -27,15 +27,16 @@ namespace DoacaoSangueWS.Controllers
                                  select b).FirstOrDefault();
 
                 if (perguntas != null)
+                {
                     return Request.CreateResponse(HttpStatusCode.OK, perguntas);
-                else
-                    return Request.CreateResponse(HttpStatusCode.NotFound, "Pergunta não encontrada.");
+                }
+                return Request.CreateResponse(HttpStatusCode.NotFound, "Pergunta não encontrada.");
             }
         }
 
         [HttpGet]
         //[AllowAnonymous]
-        [Route("pergunta")]
+        [Route("perguntas")]
         public HttpResponseMessage ListarPerguntas()
         {
             var db = new DoacaoSangueEntities();
@@ -61,10 +62,8 @@ namespace DoacaoSangueWS.Controllers
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.Created, "Pergunta removida com sucesso");
             }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound, "Falha ao excluir, pergunta inexistente");
-            }
+
+            return Request.CreateResponse(HttpStatusCode.NotFound, "Falha ao excluir, pergunta inexistente");
         }
 
         [HttpPut]
@@ -73,19 +72,17 @@ namespace DoacaoSangueWS.Controllers
         public HttpResponseMessage AlterarPergunta([FromBody]perguntas pergunta)
         {
             var db = new DoacaoSangueEntities();
-            var perguntas = db.perguntas.Where(x => x.id == pergunta.id).FirstOrDefault();
+            var perguntaAlterar = db.perguntas.Where(x => x.id == pergunta.id).FirstOrDefault();
 
-            if (perguntas != null)
+            if (perguntaAlterar != null)
             {
-                perguntas.nome = pergunta.nome != null ? pergunta.nome : perguntas.nome;
-                perguntas.resposta = pergunta.resposta != null ? pergunta.resposta : perguntas.resposta;
+                perguntaAlterar.nome = pergunta.nome != null ? pergunta.nome : perguntaAlterar.nome;
+                perguntaAlterar.resposta = pergunta.resposta != null ? pergunta.resposta : perguntaAlterar.resposta;
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.OK, "Alteração realizada com sucesso");
             }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound, "Pergunta não encontrada");
-            }
+
+            return Request.CreateResponse(HttpStatusCode.NotFound, "Pergunta não encontrada");
         }
 
         [HttpPut]
@@ -93,7 +90,6 @@ namespace DoacaoSangueWS.Controllers
         [Route("pergunta")]
         public HttpResponseMessage InserirPergunta([FromBody]perguntas pergunta)
         {
-
 
             if (pergunta.id != 0)
             {
@@ -110,7 +106,7 @@ namespace DoacaoSangueWS.Controllers
             }
 
             var db = new DoacaoSangueEntities();
-            db.perguntas.Remove(pergunta);
+            db.perguntas.Add(pergunta);
             db.SaveChanges();
             return Request.CreateResponse(HttpStatusCode.OK, "Pergunta excluída com sucesso");
 
