@@ -33,11 +33,20 @@ namespace DoacaoSangueWS.Controllers
         [Route("usuario/login")]
         public HttpResponseMessage Login([FromBody]DoacaoSangueWS.usuarios user)
         {
+            if(user.login == null || user.login.Trim() == "")
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Login não pode ser vazio");
+            }
+            if(user.senha == null || user.senha.Trim() == "")
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Senha não pode ser vazia");
+            }
+
             var db = new DoacaoSangueEntities();
             var userAux = (from u in db.usuarios
-                         where u.login == user.login &&
-                         u.senha == user.senha
-                         select u).FirstOrDefault();
+                           where u.login == user.login &&
+                           u.senha == user.senha
+                           select u).FirstOrDefault();
 
             if (userAux != null)
             {
@@ -55,6 +64,35 @@ namespace DoacaoSangueWS.Controllers
         [Route("usuario")]
         public HttpResponseMessage InserirUsuario(usuarios user)
         {
+            if (user.login == null || user.login.Trim() == "")
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Login não pode ser vazio");
+            }
+            if (user.login.Length > 30)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Login não pode ser maior que 30 caracteres");
+            }
+            if (user.nome == null || user.nome.Trim() == "")
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Nome não pode ser vazio");
+            }
+            if (user.nome.Length > 100)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Nome não pode ser maior que 100 caracteres");
+            }
+            if (user.senha == null || user.senha.Trim() == "")
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Senha não pode ser vazia");
+            }
+            if (user.senha.Length < 10)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Senha deve conter no mínimo 10 caracteres");
+            }
+            if (user.senha.Length > 30)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Senha deve conter no máximo 30 caracteres");
+            }
+
             var db = new DoacaoSangueEntities();
             var usuario = db.usuarios.Where(x => x.login == user.login).FirstOrDefault();
 
@@ -68,10 +106,8 @@ namespace DoacaoSangueWS.Controllers
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.Created, "Usuario criado com sucesso");
             }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.Conflict, "Usuario ja existente, não foi possivel criar.");
-            }
+
+            return Request.CreateResponse(HttpStatusCode.Conflict, "Usuario ja existente, não foi possivel criar.");
         }
 
         [HttpGet]

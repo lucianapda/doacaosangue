@@ -63,8 +63,8 @@ CREATE TABLE doacoes_perguntas(
 
 CREATE TABLE usuarios(
 	id INTEGER PRIMARY KEY IDENTITY(1, 1),
-	nome VARCHAR(100),
-	login VARCHAR(30),
-	senha VARCHAR(128),
-	privilegio VARCHAR(100)
+	nome VARCHAR(100) NOT NULL,
+	login VARCHAR(30) NOT NULL,
+	senha VARCHAR(128) NOT NULL,
+	privilegio VARCHAR(100) NOT NULL
 );
