@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3e29163a233045ff8ca1727bcae75b9f" Name="Diagram1">
+      <Diagram DiagramId="e3b8c89e077c42158bbd7cc1efd0b730" Name="Diagram1">
         <EntityTypeShape EntityType="DoacaoSangueWS.doacoes" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DoacaoSangueWS.doacoes_perguntas" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DoacaoSangueWS.doadores" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="DoacaoSangueWS.hemocentros" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DoacaoSangueWS.perguntas" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DoacaoSangueWS.usuarios" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <AssociationConnector Association="DoacaoSangueWS.FK__doacoes__id_doad__2A4B4B5E" ManuallyRouted="false" />
-        <AssociationConnector Association="DoacaoSangueWS.FK__doacoes_p__id_do__2D27B809" ManuallyRouted="false" />
-        <AssociationConnector Association="DoacaoSangueWS.FK__doacoes_p__id_pe__2E1BDC42" ManuallyRouted="false" />
-        <AssociationConnector Association="DoacaoSangueWS.FK__doadores__id_hem__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="DoacaoSangueWS.FK__doacoes__id_doad__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="DoacaoSangueWS.FK__doacoes_p__id_do__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="DoacaoSangueWS.FK__doacoes_p__id_pe__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="DoacaoSangueWS.FK__doadores__id_hem__38996AB5" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

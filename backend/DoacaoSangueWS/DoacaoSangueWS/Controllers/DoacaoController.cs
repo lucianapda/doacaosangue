@@ -26,13 +26,13 @@ namespace DoacaoSangueWS.Controllers
             }
 
             var db = new DoacaoSangueEntities();
-            var doacao = from d in db.doacoes
+            var doacao = (from d in db.doacoes
                          join dd in db.doadores on d.id_doador equals dd.id
                          join h in db.hemocentros on dd.id_hemocentro equals h.id
                          join dp in db.doacoes_perguntas on d.id equals dp.id_doacao
                          join p in db.perguntas on dp.id_pergunta equals p.id
                          where d.id == id
-                         select d;
+                         select d).FirstOrDefault();
             if (doacao == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, "ID de doação inexistente.");
@@ -88,7 +88,7 @@ namespace DoacaoSangueWS.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do doador não é válido");
             }
 
-            if (doacao.atendente != null || doacao.atendente.Length > 100)
+            if (doacao.atendente != null && doacao.atendente.Length > 100)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Atendente não pode conter mais que 100 caracteres");
             }
@@ -99,6 +99,7 @@ namespace DoacaoSangueWS.Controllers
             }
 
             db.doacoes.Add(doacao);
+            db.SaveChanges();
             return Request.CreateResponse(HttpStatusCode.Created, "Doação criada com sucesso!");
         }
 
@@ -186,12 +187,8 @@ namespace DoacaoSangueWS.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Pergunta já relacionada com doação");
             }
 
-            db.doacoes_perguntas.Add(new doacoes_perguntas()
-            {
-                id_pergunta = doacao_pergunta.id_pergunta,
-                id_doacao = doacao_pergunta.id_doacao,
-                resposta = doacao_pergunta.resposta
-            });
+            db.doacoes_perguntas.Add(doacao_pergunta);
+            db.SaveChanges();
             return Request.CreateResponse(HttpStatusCode.Created, "Realacionamento realizado com sucesso");
 
         }

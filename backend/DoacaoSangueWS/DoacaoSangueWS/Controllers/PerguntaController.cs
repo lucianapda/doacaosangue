@@ -85,7 +85,7 @@ namespace DoacaoSangueWS.Controllers
             return Request.CreateResponse(HttpStatusCode.NotFound, "Pergunta não encontrada");
         }
 
-        [HttpPut]
+        [HttpPost]
         //[Authorize(Roles = "Administrador")]
         [Route("pergunta")]
         public HttpResponseMessage InserirPergunta([FromBody]perguntas pergunta)

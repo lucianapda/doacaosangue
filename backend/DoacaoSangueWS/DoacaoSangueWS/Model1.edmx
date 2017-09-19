@@ -64,12 +64,12 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nome" Type="varchar" MaxLength="100" />
-          <Property Name="login" Type="varchar" MaxLength="30" />
-          <Property Name="senha" Type="varchar" MaxLength="128" />
-          <Property Name="privilegio" Type="varchar" MaxLength="100" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="senha" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="privilegio" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <Association Name="FK__doacoes__id_doad__2A4B4B5E">
+        <Association Name="FK__doacoes__id_doad__3D5E1FD2">
           <End Role="doadores" Type="Self.doadores" Multiplicity="1" />
           <End Role="doacoes" Type="Self.doacoes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -81,7 +81,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__doacoes_p__id_do__2D27B809">
+        <Association Name="FK__doacoes_p__id_do__403A8C7D">
           <End Role="doacoes" Type="Self.doacoes" Multiplicity="1" />
           <End Role="doacoes_perguntas" Type="Self.doacoes_perguntas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -93,7 +93,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__doacoes_p__id_pe__2E1BDC42">
+        <Association Name="FK__doacoes_p__id_pe__412EB0B6">
           <End Role="perguntas" Type="Self.perguntas" Multiplicity="1" />
           <End Role="doacoes_perguntas" Type="Self.doacoes_perguntas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -105,7 +105,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__doadores__id_hem__25869641">
+        <Association Name="FK__doadores__id_hem__38996AB5">
           <End Role="hemocentros" Type="Self.hemocentros" Multiplicity="1" />
           <End Role="doadores" Type="Self.doadores" Multiplicity="*" />
           <ReferentialConstraint>
@@ -124,19 +124,19 @@
           <EntitySet Name="hemocentros" EntityType="Self.hemocentros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="perguntas" EntityType="Self.perguntas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__doacoes__id_doad__2A4B4B5E" Association="Self.FK__doacoes__id_doad__2A4B4B5E">
+          <AssociationSet Name="FK__doacoes__id_doad__3D5E1FD2" Association="Self.FK__doacoes__id_doad__3D5E1FD2">
             <End Role="doadores" EntitySet="doadores" />
             <End Role="doacoes" EntitySet="doacoes" />
           </AssociationSet>
-          <AssociationSet Name="FK__doacoes_p__id_do__2D27B809" Association="Self.FK__doacoes_p__id_do__2D27B809">
+          <AssociationSet Name="FK__doacoes_p__id_do__403A8C7D" Association="Self.FK__doacoes_p__id_do__403A8C7D">
             <End Role="doacoes" EntitySet="doacoes" />
             <End Role="doacoes_perguntas" EntitySet="doacoes_perguntas" />
           </AssociationSet>
-          <AssociationSet Name="FK__doacoes_p__id_pe__2E1BDC42" Association="Self.FK__doacoes_p__id_pe__2E1BDC42">
+          <AssociationSet Name="FK__doacoes_p__id_pe__412EB0B6" Association="Self.FK__doacoes_p__id_pe__412EB0B6">
             <End Role="perguntas" EntitySet="perguntas" />
             <End Role="doacoes_perguntas" EntitySet="doacoes_perguntas" />
           </AssociationSet>
-          <AssociationSet Name="FK__doadores__id_hem__25869641" Association="Self.FK__doadores__id_hem__25869641">
+          <AssociationSet Name="FK__doadores__id_hem__38996AB5" Association="Self.FK__doadores__id_hem__38996AB5">
             <End Role="hemocentros" EntitySet="hemocentros" />
             <End Role="doadores" EntitySet="doadores" />
           </AssociationSet>
@@ -156,8 +156,8 @@
           <Property Name="atendente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="litros" Type="Double" />
           <Property Name="data" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="doadores" Relationship="Self.FK__doacoes__id_doad__2A4B4B5E" FromRole="doacoes" ToRole="doadores" />
-          <NavigationProperty Name="doacoes_perguntas" Relationship="Self.FK__doacoes_p__id_do__2D27B809" FromRole="doacoes" ToRole="doacoes_perguntas" />
+          <NavigationProperty Name="doadores" Relationship="Self.FK__doacoes__id_doad__3D5E1FD2" FromRole="doacoes" ToRole="doadores" />
+          <NavigationProperty Name="doacoes_perguntas" Relationship="Self.FK__doacoes_p__id_do__403A8C7D" FromRole="doacoes" ToRole="doacoes_perguntas" />
         </EntityType>
         <EntityType Name="doacoes_perguntas">
           <Key>
@@ -167,8 +167,8 @@
           <Property Name="id_doacao" Type="Int32" Nullable="false" />
           <Property Name="id_pergunta" Type="Int32" Nullable="false" />
           <Property Name="resposta" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="doacoes" Relationship="Self.FK__doacoes_p__id_do__2D27B809" FromRole="doacoes_perguntas" ToRole="doacoes" />
-          <NavigationProperty Name="perguntas" Relationship="Self.FK__doacoes_p__id_pe__2E1BDC42" FromRole="doacoes_perguntas" ToRole="perguntas" />
+          <NavigationProperty Name="doacoes" Relationship="Self.FK__doacoes_p__id_do__403A8C7D" FromRole="doacoes_perguntas" ToRole="doacoes" />
+          <NavigationProperty Name="perguntas" Relationship="Self.FK__doacoes_p__id_pe__412EB0B6" FromRole="doacoes_perguntas" ToRole="perguntas" />
         </EntityType>
         <EntityType Name="doadores">
           <Key>
@@ -182,8 +182,8 @@
           <Property Name="tipo_sanguineo" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="peso" Type="Double" />
           <Property Name="altura" Type="Double" />
-          <NavigationProperty Name="doacoes" Relationship="Self.FK__doacoes__id_doad__2A4B4B5E" FromRole="doadores" ToRole="doacoes" />
-          <NavigationProperty Name="hemocentros" Relationship="Self.FK__doadores__id_hem__25869641" FromRole="doadores" ToRole="hemocentros" />
+          <NavigationProperty Name="doacoes" Relationship="Self.FK__doacoes__id_doad__3D5E1FD2" FromRole="doadores" ToRole="doacoes" />
+          <NavigationProperty Name="hemocentros" Relationship="Self.FK__doadores__id_hem__38996AB5" FromRole="doadores" ToRole="hemocentros" />
         </EntityType>
         <EntityType Name="hemocentros">
           <Key>
@@ -197,7 +197,7 @@
           <Property Name="numero" Type="Int32" />
           <Property Name="cep" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="complemento" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="doadores" Relationship="Self.FK__doadores__id_hem__25869641" FromRole="hemocentros" ToRole="doadores" />
+          <NavigationProperty Name="doadores" Relationship="Self.FK__doadores__id_hem__38996AB5" FromRole="hemocentros" ToRole="doadores" />
         </EntityType>
         <EntityType Name="perguntas">
           <Key>
@@ -206,19 +206,19 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="resposta" Type="Boolean" />
-          <NavigationProperty Name="doacoes_perguntas" Relationship="Self.FK__doacoes_p__id_pe__2E1BDC42" FromRole="perguntas" ToRole="doacoes_perguntas" />
+          <NavigationProperty Name="doacoes_perguntas" Relationship="Self.FK__doacoes_p__id_pe__412EB0B6" FromRole="perguntas" ToRole="doacoes_perguntas" />
         </EntityType>
         <EntityType Name="usuarios">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="senha" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="privilegio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="senha" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="privilegio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <Association Name="FK__doacoes__id_doad__2A4B4B5E">
+        <Association Name="FK__doacoes__id_doad__3D5E1FD2">
           <End Role="doadores" Type="Self.doadores" Multiplicity="1" />
           <End Role="doacoes" Type="Self.doacoes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -230,7 +230,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__doacoes_p__id_do__2D27B809">
+        <Association Name="FK__doacoes_p__id_do__403A8C7D">
           <End Role="doacoes" Type="Self.doacoes" Multiplicity="1" />
           <End Role="doacoes_perguntas" Type="Self.doacoes_perguntas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -242,7 +242,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__doacoes_p__id_pe__2E1BDC42">
+        <Association Name="FK__doacoes_p__id_pe__412EB0B6">
           <End Role="perguntas" Type="Self.perguntas" Multiplicity="1" />
           <End Role="doacoes_perguntas" Type="Self.doacoes_perguntas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -254,7 +254,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__doadores__id_hem__25869641">
+        <Association Name="FK__doadores__id_hem__38996AB5">
           <End Role="hemocentros" Type="Self.hemocentros" Multiplicity="1" />
           <End Role="doadores" Type="Self.doadores" Multiplicity="*" />
           <ReferentialConstraint>
@@ -273,19 +273,19 @@
           <EntitySet Name="hemocentros" EntityType="Self.hemocentros" />
           <EntitySet Name="perguntas" EntityType="Self.perguntas" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" />
-          <AssociationSet Name="FK__doacoes__id_doad__2A4B4B5E" Association="Self.FK__doacoes__id_doad__2A4B4B5E">
+          <AssociationSet Name="FK__doacoes__id_doad__3D5E1FD2" Association="Self.FK__doacoes__id_doad__3D5E1FD2">
             <End Role="doadores" EntitySet="doadores" />
             <End Role="doacoes" EntitySet="doacoes" />
           </AssociationSet>
-          <AssociationSet Name="FK__doacoes_p__id_do__2D27B809" Association="Self.FK__doacoes_p__id_do__2D27B809">
+          <AssociationSet Name="FK__doacoes_p__id_do__403A8C7D" Association="Self.FK__doacoes_p__id_do__403A8C7D">
             <End Role="doacoes" EntitySet="doacoes" />
             <End Role="doacoes_perguntas" EntitySet="doacoes_perguntas" />
           </AssociationSet>
-          <AssociationSet Name="FK__doacoes_p__id_pe__2E1BDC42" Association="Self.FK__doacoes_p__id_pe__2E1BDC42">
+          <AssociationSet Name="FK__doacoes_p__id_pe__412EB0B6" Association="Self.FK__doacoes_p__id_pe__412EB0B6">
             <End Role="perguntas" EntitySet="perguntas" />
             <End Role="doacoes_perguntas" EntitySet="doacoes_perguntas" />
           </AssociationSet>
-          <AssociationSet Name="FK__doadores__id_hem__25869641" Association="Self.FK__doadores__id_hem__25869641">
+          <AssociationSet Name="FK__doadores__id_hem__38996AB5" Association="Self.FK__doadores__id_hem__38996AB5">
             <End Role="hemocentros" EntitySet="hemocentros" />
             <End Role="doadores" EntitySet="doadores" />
           </AssociationSet>
