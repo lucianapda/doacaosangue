@@ -46,11 +46,7 @@ namespace WebApplication1.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.OK, hemocentros.ToList());
             }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, "Lista de hemocentros vazia.");
-            }
-            
+            return Request.CreateResponse(HttpStatusCode.OK, "Lista de hemocentros vazia.");
         }
 
         [HttpGet]
@@ -67,10 +63,8 @@ namespace WebApplication1.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.OK, hemocentro);
             }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound, "ID informado não corresponde a um Hemocentro existente");
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "ID informado não corresponde a um Hemocentro existente");
+
         }
 
         [HttpGet]
@@ -91,7 +85,7 @@ namespace WebApplication1.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, "Nome informado não corresponde a um Hemocentro existente");
             }
-            
+
         }
 
         [HttpPost]

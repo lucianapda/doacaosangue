@@ -19,7 +19,7 @@ namespace DoacaoSangueWS.Controllers
             var doadores = from d in db.doadores
                            join h in db.hemocentros on d.id_hemocentro equals h.id
                            orderby d.nome
-                           select d;
+                           select d;    
             return Request.CreateResponse(HttpStatusCode.OK, doadores.ToList());
         }
 
@@ -159,7 +159,7 @@ namespace DoacaoSangueWS.Controllers
                                      select d).FirstOrDefault();
             if (doadorParaAlterar != null)
             {
-                doadorParaAlterar.id_hemocentro = doador.id_hemocentro == 0 ? doador.id_hemocentro : doadorParaAlterar.id_hemocentro;
+                doadorParaAlterar.id_hemocentro = doador.id_hemocentro != 0 ? doador.id_hemocentro : doadorParaAlterar.id_hemocentro;
                 doadorParaAlterar.nome = RetornarValido(doador.nome, doadorParaAlterar.nome);
                 doadorParaAlterar.sobrenome = RetornarValido(doador.sobrenome, doadorParaAlterar.sobrenome);
                 doadorParaAlterar.tipo_sanguineo = RetornarValido(doador.tipo_sanguineo, doadorParaAlterar.tipo_sanguineo);
