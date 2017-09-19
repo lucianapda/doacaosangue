@@ -15,6 +15,16 @@ namespace DoacaoSangueWS.Controllers
         [Route("doacao/{id}")]
         public HttpResponseMessage RetornarDoacao(int id)
         {
+            if (id == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código da doação deve ser informado");
+            }
+
+            if (id < 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código da doação é inválido");
+            }
+
             var db = new DoacaoSangueEntities();
             var doacao = from d in db.doacoes
                          join dd in db.doadores on d.id_doador equals dd.id
@@ -35,11 +45,20 @@ namespace DoacaoSangueWS.Controllers
         [Route("doacao/hemocentro/{id}")]
         public HttpResponseMessage RetornarDoacoesPorHemocentro(int id)
         {
+            if (id == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do hemocentro deve ser informado");
+            }
+
+            if (id < 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do hemocentro é inválido");
+            }
 
             var db = new DoacaoSangueEntities();
             var doacoes = from dc in db.doacoes
                           join dd in db.doadores on dc.id_doador equals dd.id
-                          join h in db.hemocentros on dd.id_hemocentro equals h.id 
+                          join h in db.hemocentros on dd.id_hemocentro equals h.id
                           where h.id == id
                           select dc;
             if (doacoes == null)
@@ -49,20 +68,36 @@ namespace DoacaoSangueWS.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, doacoes.ToList());
         }
 
-        [HttpGet]
-        //[Authorize(Roles = "Administrador")]
-        [Route("doacao/hemocentro/{id}/data/{data}")]
-        public HttpResponseMessage RetornarDoacoesPorHemocentroPorDataDoacao(int id, DateTime data)
-        {
-            return Request.CreateResponse(HttpStatusCode.OK, "");
-        }
-
         [HttpPost]
         //[Authorize(Roles = "Doador")]
         [Route("doacao")]
         public HttpResponseMessage InserirDoacao([FromBody] DoacaoSangueWS.doacoes doacao)
         {
+            if (doacao.id_doador == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do doador deve ser informado");
+            }
+            if (doacao.id_doador < 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do doador não é válido");
+            }
             var db = new DoacaoSangueEntities();
+            var doador = (from d in db.doadores where d.id == doacao.id_doador select d).FirstOrDefault();
+            if (doador == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do doador não é válido");
+            }
+
+            if (doacao.atendente != null || doacao.atendente.Length > 100)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Atendente não pode conter mais que 100 caracteres");
+            }
+
+            if (doacao.data <= DateTime.MinValue)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Data para doação não pode ser igual ao dia atual ou anterior");
+            }
+
             db.doacoes.Add(doacao);
             return Request.CreateResponse(HttpStatusCode.Created, "Doação criada com sucesso!");
         }
@@ -72,7 +107,7 @@ namespace DoacaoSangueWS.Controllers
         [Route("doacao")]
         public HttpResponseMessage AlterarDoacao([FromBody] DoacaoSangueWS.doacoes doacao)
         {
-            
+
             var db = new DoacaoSangueEntities();
             var doacaoAlterar = db.doacoes.Where(d => d.id == doacao.id).FirstOrDefault();
             if (doacaoAlterar != null)
@@ -91,18 +126,24 @@ namespace DoacaoSangueWS.Controllers
         [Route("doacao")]
         public HttpResponseMessage ExcluirDoacao(int id)
         {
+            if(id == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código da doação deve ser informado");
+            }
+            if(id < 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código de doação é inválido");
+            }
             var db = new DoacaoSangueEntities();
             var doacao = db.doacoes.Where(x => x.id == id).FirstOrDefault();
-            if(doacao != null)
+            if (doacao != null)
             {
                 db.doacoes.Remove(doacao);
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.OK, "Doação excluída com sucesso");
             }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound, "Doação não encontrada");
-            }
+            return Request.CreateResponse(HttpStatusCode.NotFound, "Doação não encontrada");
+
         }
 
         [HttpPost]
@@ -110,35 +151,38 @@ namespace DoacaoSangueWS.Controllers
         [Route("doacao/perguntas")]
         public HttpResponseMessage RelacionarPergunta([FromBody]DoacaoSangueWS.doacoes_perguntas doacao_pergunta)
         {
-            if(doacao_pergunta.id_doacao == 0)
+            if (doacao_pergunta.id_doacao == 0)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Código da doação não pode ser igual ou menor que 0");
             }
 
-            if(doacao_pergunta.id_pergunta <= 0)
+            if (doacao_pergunta.id_pergunta <= 0)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Código da pergunta não pode ser igual ou menor que 0");
             }
 
             var db = new DoacaoSangueEntities();
             var doacao = (from d in db.doacoes
-                            where d.id == doacao_pergunta.id_doacao
+                          where d.id == doacao_pergunta.id_doacao
                           select d).FirstOrDefault();
-            if(doacao == null){
+            if (doacao == null)
+            {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Doação não encontrado");
             }
 
             var pergunta = (from p in db.perguntas
                             where p.id == doacao_pergunta.id_pergunta
                             select p).FirstOrDefault();
-            if(pergunta == null){
+            if (pergunta == null)
+            {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Pergunta não encontrada");
             }
 
             var doacaoPergunta = (from dp in db.doacoes_perguntas
-                            where dp.id_pergunta == doacao_pergunta.id_pergunta && dp.id_doacao == doacao_pergunta.id_doacao
+                                  where dp.id_pergunta == doacao_pergunta.id_pergunta && dp.id_doacao == doacao_pergunta.id_doacao
                                   select dp).FirstOrDefault();
-            if(doacaoPergunta != null){
+            if (doacaoPergunta != null)
+            {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Pergunta já relacionada com doação");
             }
 
