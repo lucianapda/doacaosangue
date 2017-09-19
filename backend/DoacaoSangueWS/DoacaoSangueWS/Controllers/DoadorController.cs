@@ -16,7 +16,7 @@ namespace DoacaoSangueWS.Controllers
         {
             var db = new DoacaoSangueEntities();
             var doador = from d in db.doadores
-                         join h in db.hemocentros on  d.id_hemocentro  equals h.id
+                         join h in db.hemocentros on d.id_hemocentro equals h.id
                          orderby d.nome
                          select d;
             return Request.CreateResponse(HttpStatusCode.OK, doador.ToList());
@@ -50,22 +50,65 @@ namespace DoacaoSangueWS.Controllers
 
         [HttpPost]
         [Route("doador")]
-        public HttpResponseMessage InserirHemocentro([FromBody]DoacaoSangueWS.doadores doador)
+        public HttpResponseMessage InserirDoador([FromBody]DoacaoSangueWS.doadores doador)
         {
-
             var db = new DoacaoSangueEntities();
-            var perguntas = db.doadores.Where(x => x.id == doador.id).FirstOrDefault();
 
-            if (perguntas == null)
+            if(doador.id != 0)
             {
-                db.doadores.Add(doador);
-                db.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.Created, "Doador criada com sucesso");
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do doador não deve ser informado.");
             }
-            else
+            if (doador.id_hemocentro == 0)
             {
-                return Request.CreateResponse(HttpStatusCode.Conflict, "Doador ja existente, não foi possivel criar.");
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do hemocentro deve ser informado.");
             }
+            if (doador.id_hemocentro < 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do hemocentro não pode ser negativo");
+            }
+
+            var hemocentro = (from h in db.doadores where h.id == doador.id_hemocentro select h).FirstOrDefault();
+            if (hemocentro == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Código do hemocentro não é válido");
+            }
+            if (doador.nome == null || doador.nome == "")
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Nome não pode ser vazio.");
+            }
+            if (doador.nome.Length > 100)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Nome não conter mais que 100 caracteres.");
+            }
+            if (doador.sobrenome == null || doador.sobrenome == "")
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Sobrenome deve ser informado");
+            }
+            if (doador.sobrenome.Length > 100)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Sobrenome não conter mais que 100 caracteres.");
+            }
+            if (doador.data_nascimento == DateTime.MinValue)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Data de nascimento deve ser informada");
+            }
+            if (doador.data_nascimento.Date >= DateTime.Now.Date)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Data de nascimento deve ser inferior a data atual.");
+            }
+            if (doador.tipo_sanguineo == null || doador.tipo_sanguineo == "")
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Tipo sanguíneo deve ser informado");
+            }
+            if (doador.tipo_sanguineo.Length > 6)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Tipo sanguíneo não deve conter mais do que seis caracteres.");
+            }
+        
+            db.doadores.Add(doador);
+            db.SaveChanges();
+            return Request.CreateResponse(HttpStatusCode.Created, "Doador(a) criado(a) com sucesso!");
+          
         }
 
         [HttpPut]
