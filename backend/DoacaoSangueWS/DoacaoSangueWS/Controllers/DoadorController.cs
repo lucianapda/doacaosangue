@@ -11,6 +11,7 @@ namespace DoacaoSangueWS.Controllers
     {
 
         [HttpGet]
+        [Authorize(Roles = "Administrador")]
         [Route("doador")]
         public HttpResponseMessage RetornarDoadores()
         {
@@ -23,6 +24,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrador")]
         [Route("doador/{id:int}")]
         public HttpResponseMessage RetornarDoadorPorId(int id)
         {
@@ -49,6 +51,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("doador")]
         public HttpResponseMessage InserirDoador([FromBody]DoacaoSangueWS.doadores doador)
         {
@@ -108,6 +111,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administrador")]
         [Route("doador")]
         public HttpResponseMessage AlterarDoador(DoacaoSangueWS.doadores doador)
         {
@@ -138,6 +142,7 @@ namespace DoacaoSangueWS.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Administrador")]
         [Route("doador/{id:int}")]
         public HttpResponseMessage ExcluirDoador(int id)
         {
