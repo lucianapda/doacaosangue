@@ -12,7 +12,7 @@ namespace DoacaoSangueWS.Controllers
 
         [HttpGet]
         //[Authorize(Roles = "Doador")]
-        [Route("doacao/id/{id}")]
+        [Route("doacao/{id}")]
         public HttpResponseMessage RetornarDoacao(int id)
         {
             var db = new DoacaoSangueEntities();
@@ -23,12 +23,16 @@ namespace DoacaoSangueWS.Controllers
                          join p in db.perguntas on dp.id_pergunta equals p.id
                          where d.id == id
                          select d;
+            if (doacao == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "ID de doação inexistente.");
+            }
             return Request.CreateResponse(HttpStatusCode.OK, doacao);
         }
 
         [HttpGet]
         //[Authorize(Roles = "Administrador")]
-        [Route("doacao/id_hemocentro/{id}")]
+        [Route("doacao/hemocentro/{id}")]
         public HttpResponseMessage RetornarDoacoesPorHemocentro(int id)
         {
 
@@ -38,6 +42,10 @@ namespace DoacaoSangueWS.Controllers
                           join h in db.hemocentros on dd.id_hemocentro equals h.id 
                           where h.id == id
                           select dc;
+            if (doacoes == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "Sem doações para este hemocentro.");
+            }
             return Request.CreateResponse(HttpStatusCode.OK, doacoes.ToList());
         }
 
